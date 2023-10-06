@@ -339,34 +339,19 @@ function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, s
     const draftButton = document.createElement("button");
     draftButton.textContent = "Draft";
     draftButton.onclick = function() {
-    // Ensure carterCompany is defined and non-empty
-    if (!carterCompany) {
-        alert("Carter Company is not defined.");
-        return;
-    }
-
-    // Find the contact object for the carterCompany
-    const contact = contacts.find(c => c.carter === carterCompany);
-    
-    // Validate contact and phone number
-    if (contact && contact.phone) {
-        // Validate other variables (dateOfWorks, truckSize, startingPoint)
-        if (!dateOfWorks || !truckSize || !startingPoint) {
-            alert("Required job details are missing.");
-            return;
+        // Find the contact object for the carterCompany
+        const contact = contacts.find(c => c.carter === carterCompany);
+        if (contact && contact.phone) {
+            // Create SMS message text
+            const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
+            // Send SMS
+            sendSMS(contact.phone, messageText);
+        } else {
+            alert(`No contact or phone number found for ${carterCompany}`);
         }
-
-        // Create SMS message text
-        const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
-        
-        // Send SMS
-        sendSMS(contact.phone, messageText);
-    } else {
-        alert(`No contact or phone number found for ${carterCompany}`);
-    }
-};
-actionCell.appendChild(draftButton);
-
+    };
+    actionCell.appendChild(draftButton);
+}
 
 
 function exportToExcel() {
