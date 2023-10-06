@@ -146,6 +146,9 @@
         <option value="TOM">
         <option value="WESTERN LS">
         <option value="WINTER">
+        <option value="JAMES">
+        <option value="CHELSON">
+        <option value="YANNIK">                            
     </datalist>
 </label>
 
@@ -194,6 +197,92 @@
         <!-- Entries will be added here dynamically -->
     </table>
     <script>
+
+const contacts = [
+    {carter: "ACE", email: "natalie@acetrucking.com.au", name: "Natalie", phone: null},
+    {carter: "ACCURATE", email: "coordinator@accurateroadprofiling.com.au", name: "Ryan", phone: null},
+    {carter: "AGGI REVOLUTIONS", email: "aggirevolutions@gmail.com", name: "Glenn", phone: null},
+    {carter: "AGIT-8", email: "agit-8@bigpond.com", name: "Lindesay", phone: "0400829143"},
+    {carter: "AL", email: "apefenterprises@gmail.com", name: "Al", phone: null},
+    {carter: "ALLABOUT", email: "Allabouttipping@gmail.com", name: "Jason", phone: null},
+    {carter: "ASJJ", email: "asjjhaulage@gmail.com", name: "Adrian", phone: null},
+    {carter: "BAQ", email: "carlomicono64@gmail.com", name: "Carlos", phone: "0401896874"},
+    {carter: "BAZELEY", email: "kenworth.1@bigpond.com", name: "Paul", phone: null},
+    {carter: "BIG DAVES", email: "big_dave@bigpond.net.au", name: "Mel", phone: "0403217542"},
+    {carter: "BITU-MILL", email: "raymond.holder@bitu-mill.com.au", name: "Nicole", phone: null},
+    {carter: "BLACKSTARK", email: "blackstark@bigpond.com", name: "Richie", phone: null},
+    {carter: "BLUE TIPPERS", email: "sstony81@gmail.com", name: "Tony", phone: null},
+    {carter: "BRAD RICHARDSON", email: "dgunner1969@gmail.com", name: "Brad", phone: null},
+    {carter: "BRENT", email: "brentracey@exemail.com.au", name: "Brent", phone: null},
+    {carter: "BRUCE", email: "sbtomkins@gmail.com", name: "Bruce", phone: null},
+    {carter: "COASTAL", email: "bcook@coastaltipperhire.com.au", name: "Brett", phone: null},
+    {carter: "COLAS", email: "jonesb1@colas.com.au", name: "Ben", phone: null},
+    {carter: "D & M PLANT", email: "bookings@dmplanthire.com.au", name: "Ernie", phone: null},
+    {carter: "DIRT-TEC", email: "admin@dirt-tec.com.au", name: "Brad", phone: null},
+    {carter: "EASTCOAST", email: "eastcoast_asphalt@hotmail.com", name: "Michael", phone: null},
+    {carter: "EASY TIPPERS", email: "info@easytippers.com.au", name: "Chris", phone: null},
+    {carter: "EDGERTON", email: "tedgerton@bigpond.com", name: "Shane", phone: null},
+    {carter: "F&D TIPPERS", email: "dorothyjagusic@gmail.com", name: "Dorothy", phone: null},
+    {carter: "GA TRANSPORT", email: "G-Atransport@bigpond.com", name: "May", phone: null},
+    {carter: "GAINSCOUT", email: "jock@gainscout.com.au", name: "Jock", phone: null},
+    {carter: "GINTRAC", email: "Nick.Gintrac@boral.com.au", name: "Nick", phone: null},
+    {carter: "GRAHAM", email: "graham.gc20@gmail.com", name: "Graham", phone: null},
+    {carter: "GRINGO", email: "carlos@gringotransport.com.au", name: "Carlos", phone: null},
+    {carter: "JASMOND", email: "matt@jasmondtransport.com.au", name: "Connie", phone: null},
+    {carter: "JAT", email: "jatph@bigpond.com", name: "Tracey", phone: "+610473660279"},
+    {carter: "KELLYS", email: "kellysequipment@bigpond.com", name: "Brendan", phone: null},
+    {carter: "LJH TRANSPORT", email: "john.gro@bigpond.com", name: "John", phone: "0484264599"},
+    {carter: "Moving Earth", email: "scott.darra@gmail.com", name: "Scott", phone: null},
+    {carter: "NEHO", email: "robertneho@gmail.com", name: "Bob", phone: null},
+    {carter: "NQ2U", email: "nq2u@bigpond.com", name: "Dave", phone: null},
+    {carter: "PAUL", email: "Paulieog_fleming@hotmail.com", name: "Paul", phone: null},
+    {carter: "PETROB", email: "karen@petrob.com.au", name: "Mate", phone: null},
+    {carter: "PICKLES", email: "Picklestransport@hotmail.com", name: "Reece", phone: null},
+    {carter: "PLATINUM", email: "platinumtruckbookings@gmail.com", name: "James", phone: "0499799102"},
+    {carter: "PRIDDEY", email: "ben@priddeytruckingco.com", name: "Ben", phone: null},
+    {carter: "RACEWISH", email: "orders@racewish.com.au", name: "Ian", phone: null},
+    {carter: "RODDERS", email: "rodder71@hotmail.com", name: "Rod", phone: null},
+    {carter: "SCHMIEDE", email: "popp.ag@hotmail.com", name: "Greg", phone: null},
+    {carter: "SOLE", email: "office@soletransport.com.au", name: "Ian", phone: null},
+    {carter: "SS TIPPERS", email: "schrodterptyltd@optusnet.com.au", name: "Wade", phone: null},
+    {carter: "STRUCTURAL", email: "andrew@structuraltransportsolutions.com.au", name: "Andrew", phone: null},
+    {carter: "SUB HAULAGE", email: "chris@subhaulage.com.au", name: "Chris", phone: null},
+    {carter: "SUNSHINE CIVIL", email: "liam@sunshinecoastcivil.com.au", name: "Liam", phone: null},
+    {carter: "SWARLY", email: "matt@swarly.com.au", name: "Matt", phone: null},
+    {carter: "TOM", email: "rebeccawinter25@gmail.com", name: "Tom", phone: null},
+    {carter: "WESTERN LS", email: "scott@westernlandscape.com.au", name: "Scott", phone: null},
+    {carter: "WINTER", email: "rebeccawinter25@gmail.com", name: "Dan", phone: null},
+    {carter: "JAMES", email: "rebeccawinter25@gmail.com", name: "James", phone: null},
+    {carter: "CHELSON", email: "chelson.aitcheson@boral.com", name: "Chelson", phone: "+610473660279"},
+    {carter: "YANNIK", email: "rebeccawinter25@gmail.com", name: "Yannik", phone: null}
+
+];
+
+function sendSMS(phoneNumber, messageText) {
+    const username = 'chelson_boral';
+    const password = 'Q12we34r';
+    const from = '+61173401896';
+
+    // Construct the URL
+    const url = `https://www.voipbuster.com/myaccount/sendsms.php?username=${username}&password=${password}&from=${from}&to=${phoneNumber}&text=${encodeURIComponent(messageText)}`;
+
+    // Send the SMS
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Message sent:', data);
+        })
+        .catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+}
+
+
 
 const entries = [];
 
@@ -245,6 +334,23 @@ function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, s
         entries[newRow.rowIndex-1][6] = "Revised"; // Update the entry in the entries array
     };
     actionCell.appendChild(updateButton);
+
+    // Draft button
+    const draftButton = document.createElement("button");
+    draftButton.textContent = "Draft";
+    draftButton.onclick = function() {
+        // Find the contact object for the carterCompany
+        const contact = contacts.find(c => c.carter === carterCompany);
+        if (contact && contact.phone) {
+            // Create SMS message text
+            const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
+            // Send SMS
+            sendSMS(contact.phone, messageText);
+        } else {
+            alert(`No contact or phone number found for ${carterCompany}`);
+        }
+    };
+    actionCell.appendChild(draftButton);
 }
 
 
@@ -392,6 +498,28 @@ workbook.SheetNames.forEach(sheetName => {
                     entries[newRow.rowIndex-1][6] = "Revised";
                 };
                 actionCell.appendChild(updateButton);
+
+                    // Draft button
+                const draftButton = document.createElement("button");
+                draftButton.textContent = "Draft";
+                draftButton.onclick = function() {
+                    // Find the contact object for the carterCompany
+                    const contact = contacts.find(c => c.carter === carterCompany);
+                    if (contact && contact.phone) {
+                        // Create SMS message text
+                        const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
+                        // Send SMS
+                        sendSMS(contact.phone, messageText);
+                    } else {
+                        alert(`No contact or phone number found for ${carterCompany}`);
+                    }
+                };
+                actionCell.appendChild(draftButton);
+
+
+
+
+
             });
         });
     };
