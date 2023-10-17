@@ -19,27 +19,6 @@
             margin-bottom: 10px;
         }
         button {
-            width: 100px;<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truck Portal</title>
-    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: auto;
-        }
-        label {
-            margin-bottom: 5px;
-        }
-        input {
-            margin-bottom: 10px;
-        }
-        button {
             width: 100px;
             padding: 5px;
         }
@@ -220,64 +199,739 @@
     <script>
 
 const contacts = [
-    {carter: "ACE", email: "natalie@acetrucking.com.au", name: "Natalie", phone: null},
-    {carter: "ACCURATE", email: "coordinator@accurateroadprofiling.com.au", name: "Ryan", phone: null},
-    {carter: "AGGI REVOLUTIONS", email: "aggirevolutions@gmail.com", name: "Glenn", phone: null},
-    {carter: "AGIT-8", email: "agit-8@bigpond.com", name: "Lindesay", phone: "+61400829143"},
-    {carter: "AL", email: "apefenterprises@gmail.com", name: "Al", phone: null},
-    {carter: "ALLABOUT", email: "Allabouttipping@gmail.com", name: "Jason", phone: null},
-    {carter: "ASJJ", email: "asjjhaulage@gmail.com", name: "Adrian", phone: null},
-    {carter: "BAQ", email: "carlomicono64@gmail.com", name: "Carlos", phone: "+61401896874"},
-    {carter: "BAZELEY", email: "kenworth.1@bigpond.com", name: "Paul", phone: null},
-    {carter: "BIG DAVES", email: "big_dave@bigpond.net.au", name: "Mel", phone: "+61403217542"},
-    {carter: "BITU-MILL", email: "raymond.holder@bitu-mill.com.au", name: "Nicole", phone: null},
-    {carter: "BLACKSTARK", email: "blackstark@bigpond.com", name: "Richie", phone: null},
-    {carter: "BLUE TIPPERS", email: "sstony81@gmail.com", name: "Tony", phone: null},
-    {carter: "BRAD RICHARDSON", email: "dgunner1969@gmail.com", name: "Brad", phone: null},
-    {carter: "BRENT", email: "brentracey@exemail.com.au", name: "Brent", phone: null},
-    {carter: "BRUCE", email: "sbtomkins@gmail.com", name: "Bruce", phone: null},
-    {carter: "COASTAL", email: "bcook@coastaltipperhire.com.au", name: "Brett", phone: null},
-    {carter: "COLAS", email: "jonesb1@colas.com.au", name: "Ben", phone: null},
-    {carter: "D & M PLANT", email: "bookings@dmplanthire.com.au", name: "Ernie", phone: null},
-    {carter: "DIRT-TEC", email: "admin@dirt-tec.com.au", name: "Brad", phone: null},
-    {carter: "EASTCOAST", email: "eastcoast_asphalt@hotmail.com", name: "Michael", phone: null},
-    {carter: "EASY TIPPERS", email: "info@easytippers.com.au", name: "Chris", phone: null},
-    {carter: "EDGERTON", email: "tedgerton@bigpond.com", name: "Shane", phone: null},
-    {carter: "F&D TIPPERS", email: "dorothyjagusic@gmail.com", name: "Dorothy", phone: null},
-    {carter: "GA TRANSPORT", email: "G-Atransport@bigpond.com", name: "May", phone: null},
-    {carter: "GAINSCOUT", email: "jock@gainscout.com.au", name: "Jock", phone: null},
-    {carter: "GINTRAC", email: "Nick.Gintrac@boral.com.au", name: "Nick", phone: "+61401898109"},
-    {carter: "GRAHAM", email: "graham.gc20@gmail.com", name: "Graham", phone: null},
-    {carter: "GRINGO", email: "carlos@gringotransport.com.au", name: "Carlos", phone: null},
-    {carter: "JASMOND", email: "matt@jasmondtransport.com.au", name: "Connie", phone: null},
-    {carter: "JAT", email: "jatph@bigpond.com", name: "Tracey", phone: "+61473660279"},
-    {carter: "KELLYS", email: "kellysequipment@bigpond.com", name: "Brendan", phone: null},
-    {carter: "LJH TRANSPORT", email: "john.gro@bigpond.com", name: "John", phone: "+61484264599"},
-    {carter: "Moving Earth", email: "scott.darra@gmail.com", name: "Scott", phone: null},
-    {carter: "NEHO", email: "robertneho@gmail.com", name: "Bob", phone: null},
-    {carter: "NQ2U", email: "nq2u@bigpond.com", name: "Dave", phone: null},
-    {carter: "PAUL", email: "Paulieog_fleming@hotmail.com", name: "Paul", phone: null},
-    {carter: "PETROB", email: "karen@petrob.com.au", name: "Mate", phone: null},
-    {carter: "PICKLES", email: "Picklestransport@hotmail.com", name: "Reece", phone: null},
-    {carter: "PLATINUM", email: "platinumtruckbookings@gmail.com", name: "James", phone: "+61499799102"},
-    {carter: "PRIDDEY", email: "ben@priddeytruckingco.com", name: "Ben", phone: null},
-    {carter: "RACEWISH", email: "orders@racewish.com.au", name: "Ian", phone: null},
-    {carter: "RODDERS", email: "rodder71@hotmail.com", name: "Rod", phone: null},
-    {carter: "SCHMIEDE", email: "popp.ag@hotmail.com", name: "Greg", phone: null},
-    {carter: "SOLE", email: "office@soletransport.com.au", name: "Ian", phone: null},
-    {carter: "SS TIPPERS", email: "schrodterptyltd@optusnet.com.au", name: "Wade", phone: null},
-    {carter: "STRUCTURAL", email: "andrew@structuraltransportsolutions.com.au", name: "Andrew", phone: null},
-    {carter: "SUB HAULAGE", email: "chris@subhaulage.com.au", name: "Chris", phone: null},
-    {carter: "SUNSHINE CIVIL", email: "liam@sunshinecoastcivil.com.au", name: "Liam", phone: null},
-    {carter: "SWARLY", email: "matt@swarly.com.au", name: "Matt", phone: null},
-    {carter: "TOM", email: "rebeccawinter25@gmail.com", name: "Tom", phone: null},
-    {carter: "WESTERN LS", email: "scott@westernlandscape.com.au", name: "Scott", phone: null},
-    {carter: "WINTER", email: "rebeccawinter25@gmail.com", name: "Dan", phone: "+61401896416"},
-    {carter: "JAMES", email: "rebeccawinter25@gmail.com", name: "James", phone: "+61401894898"},
-    {carter: "CHELSON", email: "chelson.aitcheson@boral.com", name: "Chelson", phone: "+61473660279"},
-    {carter: "YANNIK", email: "rebeccawinter25@gmail.com", name: "Yannik", phone: null}
-
+    {
+        carter: "ACE",
+        email: "natalie@acetrucking.com.au",
+        name: "Natalie",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "ACCURATE",
+        email: "coordinator@accurateroadprofiling.com.au",
+        name: "Ryan",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "AGGI REVOLUTIONS",
+        email: "aggirevolutions@gmail.com",
+        name: "Glenn",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "AGIT-8",
+        email: "agit-8@bigpond.com",
+        name: "Lindesay",
+        phone: "+61400829143",
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "AL",
+        email: "apefenterprises@gmail.com",
+        name: "Al",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "ALLABOUT",
+        email: "Allabouttipping@gmail.com",
+        name: "Jason",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "ASJJ",
+        email: "asjjhaulage@gmail.com",
+        name: "Adrian",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BAQ",
+        email: "carlomicono64@gmail.com",
+        name: "Carlos",
+        phone: "+61401896874",
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BAZELEY",
+        email: "kenworth.1@bigpond.com",
+        name: "Paul",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BIG DAVES",
+        email: "big_dave@bigpond.net.au",
+        name: "Mel",
+        phone: "+61403217542",
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BITU-MILL",
+        email: "raymond.holder@bitu-mill.com.au",
+        name: "Nicole",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BLACKSTARK",
+        email: "blackstark@bigpond.com",
+        name: "Richie",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BLUE TIPPERS",
+        email: "sstony81@gmail.com",
+        name: "Tony",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BRAD RICHARDSON",
+        email: "dgunner1969@gmail.com",
+        name: "Brad",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BRENT",
+        email: "brentracey@exemail.com.au",
+        name: "Brent",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "BRUCE",
+        email: "sbtomkins@gmail.com",
+        name: "Bruce",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    }
+    {
+        carter: "COASTAL",
+        email: "bcook@coastaltipperhire.com.au",
+        name: "Brett",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "COLAS",
+        email: "jonesb1@colas.com.au",
+        name: "Ben",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "D & M PLANT",
+        email: "bookings@dmplanthire.com.au",
+        name: "Ernie",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "DIRT-TEC",
+        email: "admin@dirt-tec.com.au",
+        name: "Brad",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "EASTCOAST",
+        email: "eastcoast_asphalt@hotmail.com",
+        name: "Michael",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "EASY TIPPERS",
+        email: "info@easytippers.com.au",
+        name: "Chris",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "EDGERTON",
+        email: "tedgerton@bigpond.com",
+        name: "Shane",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "F&D TIPPERS",
+        email: "dorothyjagusic@gmail.com",
+        name: "Dorothy",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "GA TRANSPORT",
+        email: "G-Atransport@bigpond.com",
+        name: "May",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "GAINSCOUT",
+        email: "jock@gainscout.com.au",
+        name: "Jock",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "GINTRAC",
+        email: "Nick.Gintrac@boral.com.au",
+        name: "Nick",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "GRAHAM",
+        email: "graham.gc20@gmail.com",
+        name: "Graham",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "GRINGO",
+        email: "carlos@gringotransport.com.au",
+        name: "Carlos",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "JASMOND",
+        email: "matt@jasmondtransport.com.au",
+        name: "Connie",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    }
+    {
+        carter: "JAT",
+        email: "jatph@bigpond.com",
+        name: "Tracey",
+        phone: "+61473660279",
+        sizes: {
+            "12": 5,
+            "15": 5,
+            "17": 5,
+            "18": 5,
+            "24": 5
+        }
+    },
+    {
+        carter: "KELLYS",
+        email: "kellysequipment@bigpond.com",
+        name: "Brendan",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "LJH TRANSPORT",
+        email: "john.gro@bigpond.com",
+        name: "John",
+        phone: "+61484264599",
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "Moving Earth",
+        email: "scott.darra@gmail.com",
+        name: "Scott",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "NEHO",
+        email: "robertneho@gmail.com",
+        name: "Bob",
+        phone: null,
+        sizes: {
+            "12": 1,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "NQ2U",
+        email: "nq2u@bigpond.com",
+        name: "Dave",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "PAUL",
+        email: "Paulieog_fleming@hotmail.com",
+        name: "Paul",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "PETROB",
+        email: "karen@petrob.com.au",
+        name: "Mate",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "PICKLES",
+        email: "Picklestransport@hotmail.com",
+        name: "Reece",
+        phone: null,
+        sizes: {
+            "12": 3,
+            "15": 3,
+            "17": 1,
+            "18": 2,
+            "24": 3
+        }
+    },
+    {
+        carter: "PLATINUM",
+        email: "platinumtruckbookings@gmail.com",
+        name: "James",
+        phone: "+61499799102",
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "PRIDDEY",
+        email: "ben@priddeytruckingco.com",
+        name: "Ben",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "RACEWISH",
+        email: "orders@racewish.com.au",
+        name: "Ian",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "RODDERS",
+        email: "rodder71@hotmail.com",
+        name: "Rod",
+        phone: null,
+        sizes: {
+            "12": 2,
+            "15": 2,
+            "17": 3,
+            "18": 4,
+            "24": 5
+        }
+    }
+    const carters = [
+    // ... (previous carters)
+    {
+        carter: "SCHMIEDE",
+        email: "popp.ag@hotmail.com",
+        name: "Greg",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "SOLE",
+        email: "office@soletransport.com.au",
+        name: "Ian",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "SS TIPPERS",
+        email: "schrodterptyltd@optusnet.com.au",
+        name: "Wade",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "STRUCTURAL",
+        email: "andrew@structuraltransportsolutions.com.au",
+        name: "Andrew",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "SUB HAULAGE",
+        email: "chris@subhaulage.com.au",
+        name: "Chris",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "SUNSHINE CIVIL",
+        email: "liam@sunshinecoastcivil.com.au",
+        name: "Liam",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "SWARLY",
+        email: "matt@swarly.com.au",
+        name: "Matt",
+        phone: null,
+        sizes: {
+            "12": 5,
+            "15": 4,
+            "17": 3,
+            "18": 2,
+            "24": 1
+        }
+    },
+    {
+        carter: "TOM",
+        email: "rebeccawinter25@gmail.com",
+        name: "Tom",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "WESTERN LS",
+        email: "scott@westernlandscape.com.au",
+        name: "Scott",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "WINTER",
+        email: "rebeccawinter25@gmail.com",
+        name: "Dan",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "JAMES",
+        email: "rebeccawinter25@gmail.com",
+        name: "James",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "CHELSON",
+        email: "chelson.aitcheson@boral.com",
+        name: "Chelson",
+        phone: "+610473660279",
+        sizes: {
+            "12": 1,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    },
+    {
+        carter: "YANNIK",
+        email: "rebeccawinter25@gmail.com",
+        name: "Yannik",
+        phone: null,
+        sizes: {
+            "12": 0,
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "24": 0
+        }
+    }
+    // ... (continue for other carters)
 ];
+
 
 function sendSMS(phoneNumber, messageText) {
     const username = 'chelson_boral';
@@ -638,7 +1292,14 @@ function sortTable() {
 
 function generateTrucks() {
     const tons = parseInt(document.getElementById('tons').value);
-    const truckSizes = [12, 15, 17, 18, 24];
+
+    // Extract unique truck sizes from contacts array
+    const truckSizesSet = new Set();
+    contacts.forEach(contact => {
+        Object.keys(contact.sizes).forEach(size => truckSizesSet.add(parseInt(size)));
+    });
+    const truckSizes = [...truckSizesSet];
+
     let remainingTons = tons;
     let generatedTrucks = [];
     let maxIterations = 1000;
@@ -669,673 +1330,10 @@ function generateTrucks() {
 
     const projectNo = document.getElementById('projectNo').value;
     const dateOfWorks = document.getElementById('dateOfWorks').value;
-    let currentTime = document.getElementById('startTime').value; // Changed to let because we'll modify it
+    let currentTime = document.getElementById('startTime').value;
     const startingPoint = document.getElementById('startingPoint').value;
     const bookingStatus = document.getElementById('bookingStatus').value;
-    const timeIncrement = parseInt(document.getElementById('timeIncrement').value); // Added time increment
-
-    if (!projectNo || !dateOfWorks || !currentTime || !startingPoint || !bookingStatus) {
-        alert('Please fill in all details except Carter Company and Truck Size.');
-        return;
-    }
-
-    const useFavorites = document.getElementById('useFavorites').checked;
-    const favoriteCompanies = ['RODDERS', 'NEHO', 'BAZELEY', 'D & M PLANT', 'DIRT-TEC', 'AGGI REVOLUTIONS'];
-    const carterCompanies = Array.from(document.getElementById('carterCompanies').options).map(option => option.value);
-
-    const prioritizedCompanies = useFavorites ? 
-        [...favoriteCompanies, ...carterCompanies.filter(company => !favoriteCompanies.includes(company.toLowerCase()))] : 
-        carterCompanies;
-
-    generatedTrucks.forEach(truckSize => {
-        const randomIndex = Math.floor(Math.random() * prioritizedCompanies.length);
-        const selectedCarterCompany = prioritizedCompanies[randomIndex];
-
-        addEntry(projectNo, dateOfWorks, selectedCarterCompany, truckSize, currentTime, startingPoint, bookingStatus);
-
-        // Increment the time for the next truck
-        currentTime = addMinutesToTime(currentTime, timeIncrement);
-    });
-}
-
-
-
-    </script>
-</body>
-</html>
-
-            padding: 5px;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        header {
-            background-color: #4CAF50; /* Green */
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-            color: white;
-            position: fixed; /* Fix position */
-            width: 100%; /* Full width */
-            top: 0; /* At the top */
-            z-index: 1000; /* Ensure it's above other elements */
-        }
-        body {
-            padding-top: 50px; /* Adjusted space for the header */
-        }
-    </style>
-</head>
-<body>
-        <header>
-        Truck Portal
-        </header>
-    <form id="projectForm">
-
-        <label>Date of works: <input type="date" id="dateOfWorks"></label>
-        <label>Project No: <input type="text" id="projectNo"></label>
-        <label>DRSID: <input type="text" id="drsid"></label>
-        <label>Project name: <input type="text" id="projectName"></label>
-        <label>Location: <input type="text" id="location"></label>
-        <label>Supervisor: 
-        <input list="supervisors" type="text" id="supervisor">
-    <datalist id="supervisors">
-        <option value="Andrew Jones - 0401 896 458">
-        <option value="Chris Henley - 0409 047 383">
-        <option value="Craig Philipson - 0401 894 926">
-        <option value="Dean Cullen-Reid - 0401 895 407">
-        <option value="Ian Kirby - 0401 897 523">
-        <option value="James Laurenson - 0401 894 898">
-        <option value="Johnny Cash - 0437 821 140">
-        <option value="Mal Wringe - 0401 896 287">
-        <option value="Mark Chalker - 0401 892 260">
-        <option value="Mark Knowlan - 0419 742 437">
-        <option value="Matt (Red) Hocking - 0401 892 201">
-        <option value="Matt Dillon - 0417 455 094">
-        <option value="Matt Egan - 0401 892 277">
-        <option value="Neel Patel - 0401 893 372">
-        <option value="Raj Modi - 0401 893 372">
-        <option value="Steve Cuthbertson - 0401 897 477">
-        <option value="T300 Mobile - 0401 896 982">
-        <option value="Tony (Ribsy) Carlyle  - 0401 895 461">
-        <option value="Troy Kennington - 0401 897 571">
-        <option value="Yannik Gintrac - 0422 200 404">
-    </datalist>
-</label>
-
-        <!-- ... Previous code ... -->
-
-<label>Carter company: 
-    <input list="carterCompanies" type="text" id="carterCompany">
-    <datalist id="carterCompanies">
-        <option value="ACE">
-        <option value="ACCURATE">
-        <option value="AGGI REVOLUTIONS">
-        <option value="AGIT-8">
-        <option value="AL">
-        <option value="ALLABOUT">
-        <option value="ASJJ">
-        <option value="BAQ">
-        <option value="BAZELEY">
-        <option value="BIG DAVES">
-        <option value="BITU-MILL">
-        <option value="BLACKSTARK">
-        <option value="BLUE TIPPERS">
-        <option value="BRAD RICHARDSON">
-        <option value="BRENT">
-        <option value="BRUCE">
-        <option value="COASTAL">
-        <option value="COLAS">
-        <option value="D & M PLANT">
-        <option value="DIRT-TEC">
-        <option value="EASTCOAST">
-        <option value="EASY TIPPERS">
-        <option value="EDGERTON">
-        <option value="F&D TIPPERS">
-        <option value="GA TRANSPORT">
-        <option value="GAINSCOUT">
-        <option value="GINTRAC">
-        <option value="GRAHAM">
-        <option value="GRINGO">
-        <option value="JASMOND">
-        <option value="JAT">
-        <option value="KELLYS">
-        <option value="LJH TRANSPORT">
-        <option value="Moving Earth">
-        <option value="NEHO">
-        <option value="NQ2U">
-        <option value="PAUL">
-        <option value="PETROB">
-        <option value="PICKLES">
-        <option value="PLATINUM">
-        <option value="PRIDDEY">
-        <option value="RACEWISH">
-        <option value="RODDERS">
-        <option value="SCHMIEDE">
-        <option value="SOLE">
-        <option value="SS TIPPERS">
-        <option value="STRUCTURAL">
-        <option value="SUB HAULAGE">
-        <option value="SUNSHINE CIVIL">
-        <option value="SWARLY">
-        <option value="TOM">
-        <option value="WESTERN LS">
-        <option value="WINTER">
-        <option value="JAMES">
-        <option value="CHELSON">
-        <option value="YANNIK">                            
-    </datalist>
-</label>
-
-<label>Tons: 
-    <input type="number" id="tons">
-</label>
-
-<button type="button" onclick="generateTrucks()">Generate</button>
-
-<label>Use Favorite Truck Companies: 
-    <input type="checkbox" id="useFavorites">
-</label>
-
-
-<p id="generatedTrucks"></p>
-
-<!-- ... Remaining code ... -->
-
-        <label>Truck Size: <input type="text" id="truckSize"></label>
-        <label>Start Time: <input type="time" id="startTime"></label>
-        <label>Time Increment (mins): <input type="number" id="timeIncrement" value="5"></label>
-        <label>Starting Point: <input type="text" id="startingPoint"></label>
-        <label>Booking Status: <input type="text" id="bookingStatus"></label>
-        <button type="button" onclick="addEntry()">Add Entry</button>
-        <button type="button" onclick="exportToExcel()">Export to Excel</button>
-    </form>
-    <button type="button" onclick="sortTable()">Sort by Project No</button>
-    <button type="button" onclick="sortTableByDate()">Sort by Date</button>
-    <button type="button" onclick="sortTableByProjectNoAndDate()">Sort by Project No and Date</button>
-
-
-    <input type="file" id="upload" accept=".xlsx" onchange="handleFileUpload()" />
-
-
-    <table id="entriesTable">
-        <tr>
-        <th>Project No</th>
-        <th>Date</th>
-        <th>Carter Company</th>
-        <th>Truck Size</th>
-        <th>Start Time</th>
-        <th>Starting Point</th>
-        <th>Booking Status</th>
-        <th>Action</th>
-        </tr>
-        <!-- Entries will be added here dynamically -->
-    </table>
-    <script>
-
-const contacts = [
-    {carter: "ACE", email: "natalie@acetrucking.com.au", name: "Natalie", phone: null},
-    {carter: "ACCURATE", email: "coordinator@accurateroadprofiling.com.au", name: "Ryan", phone: null},
-    {carter: "AGGI REVOLUTIONS", email: "aggirevolutions@gmail.com", name: "Glenn", phone: null},
-    {carter: "AGIT-8", email: "agit-8@bigpond.com", name: "Lindesay", phone: "+61400829143"},
-    {carter: "AL", email: "apefenterprises@gmail.com", name: "Al", phone: null},
-    {carter: "ALLABOUT", email: "Allabouttipping@gmail.com", name: "Jason", phone: null},
-    {carter: "ASJJ", email: "asjjhaulage@gmail.com", name: "Adrian", phone: null},
-    {carter: "BAQ", email: "carlomicono64@gmail.com", name: "Carlos", phone: "+61401896874"},
-    {carter: "BAZELEY", email: "kenworth.1@bigpond.com", name: "Paul", phone: null},
-    {carter: "BIG DAVES", email: "big_dave@bigpond.net.au", name: "Mel", phone: "+61403217542"},
-    {carter: "BITU-MILL", email: "raymond.holder@bitu-mill.com.au", name: "Nicole", phone: null},
-    {carter: "BLACKSTARK", email: "blackstark@bigpond.com", name: "Richie", phone: null},
-    {carter: "BLUE TIPPERS", email: "sstony81@gmail.com", name: "Tony", phone: null},
-    {carter: "BRAD RICHARDSON", email: "dgunner1969@gmail.com", name: "Brad", phone: null},
-    {carter: "BRENT", email: "brentracey@exemail.com.au", name: "Brent", phone: null},
-    {carter: "BRUCE", email: "sbtomkins@gmail.com", name: "Bruce", phone: null},
-    {carter: "COASTAL", email: "bcook@coastaltipperhire.com.au", name: "Brett", phone: null},
-    {carter: "COLAS", email: "jonesb1@colas.com.au", name: "Ben", phone: null},
-    {carter: "D & M PLANT", email: "bookings@dmplanthire.com.au", name: "Ernie", phone: null},
-    {carter: "DIRT-TEC", email: "admin@dirt-tec.com.au", name: "Brad", phone: null},
-    {carter: "EASTCOAST", email: "eastcoast_asphalt@hotmail.com", name: "Michael", phone: null},
-    {carter: "EASY TIPPERS", email: "info@easytippers.com.au", name: "Chris", phone: null},
-    {carter: "EDGERTON", email: "tedgerton@bigpond.com", name: "Shane", phone: null},
-    {carter: "F&D TIPPERS", email: "dorothyjagusic@gmail.com", name: "Dorothy", phone: null},
-    {carter: "GA TRANSPORT", email: "G-Atransport@bigpond.com", name: "May", phone: null},
-    {carter: "GAINSCOUT", email: "jock@gainscout.com.au", name: "Jock", phone: null},
-    {carter: "GINTRAC", email: "Nick.Gintrac@boral.com.au", name: "Nick", phone: null},
-    {carter: "GRAHAM", email: "graham.gc20@gmail.com", name: "Graham", phone: null},
-    {carter: "GRINGO", email: "carlos@gringotransport.com.au", name: "Carlos", phone: null},
-    {carter: "JASMOND", email: "matt@jasmondtransport.com.au", name: "Connie", phone: null},
-    {carter: "JAT", email: "jatph@bigpond.com", name: "Tracey", phone: "+61473660279"},
-    {carter: "KELLYS", email: "kellysequipment@bigpond.com", name: "Brendan", phone: null},
-    {carter: "LJH TRANSPORT", email: "john.gro@bigpond.com", name: "John", phone: "+61484264599"},
-    {carter: "Moving Earth", email: "scott.darra@gmail.com", name: "Scott", phone: null},
-    {carter: "NEHO", email: "robertneho@gmail.com", name: "Bob", phone: null},
-    {carter: "NQ2U", email: "nq2u@bigpond.com", name: "Dave", phone: null},
-    {carter: "PAUL", email: "Paulieog_fleming@hotmail.com", name: "Paul", phone: null},
-    {carter: "PETROB", email: "karen@petrob.com.au", name: "Mate", phone: null},
-    {carter: "PICKLES", email: "Picklestransport@hotmail.com", name: "Reece", phone: null},
-    {carter: "PLATINUM", email: "platinumtruckbookings@gmail.com", name: "James", phone: "+61499799102"},
-    {carter: "PRIDDEY", email: "ben@priddeytruckingco.com", name: "Ben", phone: null},
-    {carter: "RACEWISH", email: "orders@racewish.com.au", name: "Ian", phone: null},
-    {carter: "RODDERS", email: "rodder71@hotmail.com", name: "Rod", phone: null},
-    {carter: "SCHMIEDE", email: "popp.ag@hotmail.com", name: "Greg", phone: null},
-    {carter: "SOLE", email: "office@soletransport.com.au", name: "Ian", phone: null},
-    {carter: "SS TIPPERS", email: "schrodterptyltd@optusnet.com.au", name: "Wade", phone: null},
-    {carter: "STRUCTURAL", email: "andrew@structuraltransportsolutions.com.au", name: "Andrew", phone: null},
-    {carter: "SUB HAULAGE", email: "chris@subhaulage.com.au", name: "Chris", phone: null},
-    {carter: "SUNSHINE CIVIL", email: "liam@sunshinecoastcivil.com.au", name: "Liam", phone: null},
-    {carter: "SWARLY", email: "matt@swarly.com.au", name: "Matt", phone: null},
-    {carter: "TOM", email: "rebeccawinter25@gmail.com", name: "Tom", phone: null},
-    {carter: "WESTERN LS", email: "scott@westernlandscape.com.au", name: "Scott", phone: null},
-    {carter: "WINTER", email: "rebeccawinter25@gmail.com", name: "Dan", phone: null},
-    {carter: "JAMES", email: "rebeccawinter25@gmail.com", name: "James", phone: null},
-    {carter: "CHELSON", email: "chelson.aitcheson@boral.com", name: "Chelson", phone: "+610473660279"},
-    {carter: "YANNIK", email: "rebeccawinter25@gmail.com", name: "Yannik", phone: null}
-
-];
-
-function sendSMS(phoneNumber, messageText) {
-    const username = 'chelson_boral';
-    const password = 'Q12we34r';
-    const from = '+61173401896';
-
-    // Construct the URL
-    const url = `https://www.voipbuster.com/myaccount/sendsms.php?username=${username}&password=${password}&from=${from}&to=${phoneNumber}&text=${encodeURIComponent(messageText)}`;
-
-    // Send the SMS
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log('Message sent:', data);
-        })
-        .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
-}
-
-
-
-const entries = [];
-
-function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus) {
-    // If parameters are not provided, get values from input fields
-    projectNo = projectNo || document.getElementById('projectNo').value;
-    dateOfWorks = dateOfWorks || document.getElementById('dateOfWorks').value;
-    carterCompany = carterCompany || document.getElementById('carterCompany').value;
-    truckSize = truckSize || document.getElementById('truckSize').value;
-    startTime = startTime || document.getElementById('startTime').value;
-    startingPoint = startingPoint || document.getElementById('startingPoint').value;
-    bookingStatus = bookingStatus || document.getElementById('bookingStatus').value;
-
-    const entry = [projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus];
-    entries.push(entry);
-
-    const table = document.getElementById('entriesTable');
-    const newRow = table.insertRow(-1);
-
-    entry.forEach((text, index) => {
-        const newCell = newRow.insertCell(-1);
-        const newInput = document.createElement('input');
-        newInput.value = text;
-        newInput.dataset.index = index; // Store the index to know which entry to update
-        newInput.oninput = function() {
-            // Update the entry in the entries array when the input value changes
-            entries[newRow.rowIndex-1][this.dataset.index] = this.value;
-        };
-        newCell.appendChild(newInput);
-    });
-
-    // Action cell
-    const actionCell = newRow.insertCell(-1);
-
-    // Delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.onclick = function() {
-        table.deleteRow(newRow.rowIndex);
-        entries.splice(newRow.rowIndex-1, 1);
-    };
-    actionCell.appendChild(deleteButton);
-
-    // Update button
-    const updateButton = document.createElement("button");
-    updateButton.textContent = "Revise";
-    updateButton.onclick = function() {
-        newRow.cells[6].firstChild.value = "Revised"; // Update the input value
-        entries[newRow.rowIndex-1][6] = "Revised"; // Update the entry in the entries array
-    };
-    actionCell.appendChild(updateButton);
-
-    // Draft button
-    const draftButton = document.createElement("button");
-    draftButton.textContent = "Draft";
-    draftButton.onclick = function() {
-        // Find the contact object for the carterCompany
-        const contact = contacts.find(c => c.carter === carterCompany);
-        if (contact && contact.phone) {
-            // Create SMS message text
-            const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
-            // Send SMS
-            sendSMS(contact.phone, messageText);
-        } else {
-            alert(`No contact or phone number found for ${carterCompany}`);
-        }
-    };
-    actionCell.appendChild(draftButton);
-}
-
-
-function exportToExcel() {
-    const dateOfWorks = document.getElementById('dateOfWorks').value;
-    const projectNo = document.getElementById('projectNo').value;
-    const drsid = document.getElementById('drsid').value;
-    const projectName = document.getElementById('projectName').value;
-    const location = document.getElementById('location').value;
-    const supervisor = document.getElementById('supervisor').value;
-
-    const wb = XLSX.utils.book_new();
-
-    // Group entries by date
-    const groupedEntries = entries.reduce((acc, entry) => {
-        (acc[entry[1]] = acc[entry[1]] || []).push(entry);
-        return acc;
-    }, {});
-
-    Object.keys(groupedEntries).forEach(date => {
-        const data = [
-            ["BOOKING STATUS / CARTER MISSMATCH",,,,,],
-            ["Date of works:", date + " NIGHT",,,],
-            ["Project No:", projectNo,,"DRSID:", drsid],
-            ["Project:", projectName,,,],
-            ["Location", location,,,],
-            ["Supervisor:", supervisor,,,],
-            ["Project No", "Date", "Carter:", "Truck Size:", "Start Time:", "Starting Point:", "Booking Status:"],
-        ];
-
-        // Add entries to the data array before exporting to Excel
-        groupedEntries[date].forEach(entry => {
-            data.push(entry);
-        });
-
-        const ws = XLSX.utils.aoa_to_sheet(data);
-        XLSX.utils.book_append_sheet(wb, ws, date); // Use date as sheet name
-    });
-
-    XLSX.writeFile(wb, "project_data.xlsx");
-}
-
-function handleFileUpload() {
-    const input = document.getElementById('upload');
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const data = e.target.result;
-        const workbook = XLSX.read(data, {
-            type: 'binary'
-        });
-
-        // Clear existing entries
-        entries.length = 0;
-        const existingTables = document.querySelectorAll('.entriesTable');
-        existingTables.forEach(table => table.remove());
-
-workbook.SheetNames.forEach(sheetName => {
-    // Create a new table for each sheet
-    const table = document.createElement('table');
-    table.classList.add('entriesTable');
-    document.body.appendChild(table);
-
-    const sheet = workbook.Sheets[sheetName];
-
-    // Assuming project name and location are in B3 and B5 respectively
-    const projectName = sheet['B3'] ? sheet['B3'].v : "Unknown Project";
-    const location = sheet['B5'] ? sheet['B5'].v : "Unknown Location";
-
-    // Calculate total tons by summing all numbers in column D starting from row 8
-    let totalTons = 0;
-    let row = 8; // Starting from row 8
-    while(sheet['D' + row]) {
-        totalTons += sheet['D' + row].v;
-        row++;
-    }
-
-    // Add a header to the table to indicate the sheet name and additional info
-    const headerRow = table.insertRow(-1);
-    const headerCell = headerRow.insertCell(-1);
-    headerCell.colSpan = 8;
-    headerCell.textContent = `Sheet: ${sheetName}, Project: ${projectName}, Location: ${location}, Total Tons: ${totalTons}`;
-    headerCell.style.backgroundColor = '#4CAF50'; // Green background
-    headerCell.style.color = 'white'; // White text
-    headerCell.style.textAlign = 'center';
-    headerCell.style.fontSize = '18px'; // Larger font size
-    headerCell.style.padding = '10px'; // Some padding
-
-            // Add column headers to the table
-            const columnHeaders = ["Project No", "Date", "Carter Company", "Truck Size", "Start Time", "Starting Point", "Booking Status", "Action"];
-            const columnHeadersRow = table.insertRow(-1);
-            columnHeaders.forEach(header => {
-                const cell = columnHeadersRow.insertCell(-1);
-                cell.textContent = header;
-                cell.style.backgroundColor = '#ddd';
-            });
-
-            const jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
-
-            // Assuming the header is in the first row, data starts from the second row
-            jsonData.slice(7).forEach(([
-                projectNo, 
-                dateOfWorks, 
-                carterCompany, 
-                truckSize, 
-                startTime, 
-                startingPoint, 
-                bookingStatus
-            ]) => {
-                // Add to entries array
-                entries.push([
-                    projectNo, 
-                    dateOfWorks, 
-                    carterCompany, 
-                    truckSize, 
-                    startTime, 
-                    startingPoint, 
-                    bookingStatus
-                ]);
-
-                // Add to table
-                const newRow = table.insertRow(-1);
-                [projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus].forEach(text => {
-                    const newCell = newRow.insertCell(-1);
-                    const newText = document.createTextNode(text);
-                    newCell.appendChild(newText);
-                });
-
-                // Action cell
-                const actionCell = newRow.insertCell(-1);
-
-                // Delete button
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "Delete";
-                deleteButton.onclick = function() {
-                    table.deleteRow(newRow.rowIndex);
-                    entries.splice(newRow.rowIndex-1, 1);
-                };
-                actionCell.appendChild(deleteButton);
-
-                // Update button
-                const updateButton = document.createElement("button");
-                updateButton.textContent = "Revise";
-                updateButton.onclick = function() {
-                    newRow.cells[6].textContent = "Revised";
-                    entries[newRow.rowIndex-1][6] = "Revised";
-                };
-                actionCell.appendChild(updateButton);
-
-                    // Draft button
-                const draftButton = document.createElement("button");
-                draftButton.textContent = "Draft";
-                draftButton.onclick = function() {
-                    // Find the contact object for the carterCompany
-                    const contact = contacts.find(c => c.carter === carterCompany);
-                    if (contact && contact.phone) {
-                        // Create SMS message text
-                        const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
-                        // Send SMS
-                        sendSMS(contact.phone, messageText);
-                    } else {
-                        alert(`No contact or phone number found for ${carterCompany}`);
-                    }
-                };
-                actionCell.appendChild(draftButton);
-
-
-
-
-
-            });
-        });
-    };
-    reader.readAsBinaryString(input.files[0]);
-}
-
-
-
-
-
-
-function addMinutesToTime(time, minsToAdd) {
-    const [hours, minutes] = time.split(':').map(Number);
-    let newMinutes = minutes + minsToAdd;
-    let newHours = hours + Math.floor(newMinutes / 60);
-    newMinutes = newMinutes % 60;
-    return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
-}
-
-function sortTableByDate() {
-    const table = document.getElementById('entriesTable');
-    let rows, switching, i, x, y, shouldSwitch;
-    switching = true;
-
-    // Continue looping until no switching is needed
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-
-        // Loop through all table rows (except the first, which contains table headers)
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-
-            // Get the two elements you want to compare: dates
-            const dateX = new Date(rows[i].getElementsByTagName("TD")[1].innerHTML);
-            const dateY = new Date(rows[i + 1].getElementsByTagName("TD")[1].innerHTML);
-
-            // Check if the two rows should switch place based on date
-            if (dateX > dateY) {
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if (shouldSwitch) {
-            // If a switch has been marked, make the switch and mark that a switch has been done
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
-    }
-}
-
-
-
-function sortTable() {
-    const table = document.getElementById('entriesTable');
-    let rows, switching, i, x, y, shouldSwitch;
-    switching = true;
-
-    // Continue looping until no switching is needed
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-
-        // Loop through all table rows (except the first, which contains table headers)
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-
-            // Get the two elements you want to compare: project number and date
-            const projectNoX = rows[i].getElementsByTagName("TD")[0].innerHTML;
-            const projectNoY = rows[i + 1].getElementsByTagName("TD")[0].innerHTML;
-            const dateX = new Date(rows[i].getElementsByTagName("TD")[1].innerHTML);
-            const dateY = new Date(rows[i + 1].getElementsByTagName("TD")[1].innerHTML);
-
-            // Check if the two rows should switch place based on project number
-            if (projectNoX.toLowerCase() > projectNoY.toLowerCase()) {
-                shouldSwitch = true;
-                break;
-            }
-            
-            // If project numbers are the same, check based on date
-            if (projectNoX.toLowerCase() === projectNoY.toLowerCase() && dateX > dateY) {
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if (shouldSwitch) {
-            // If a switch has been marked, make the switch and mark that a switch has been done
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
-    }
-}
-
-
-
-function generateTrucks() {
-    const tons = parseInt(document.getElementById('tons').value);
-    const truckSizes = [12, 15, 17, 18, 24];
-    let remainingTons = tons;
-    let generatedTrucks = [];
-    let maxIterations = 1000;
-    let currentIteration = 0;
-
-    while (remainingTons > 0 && currentIteration < maxIterations) {
-        const randomIndex = Math.floor(Math.random() * truckSizes.length);
-        const selectedTruckSize = truckSizes[randomIndex];
-
-        if (selectedTruckSize <= remainingTons) {
-            generatedTrucks.push(selectedTruckSize);
-            remainingTons -= selectedTruckSize;
-        }
-
-        currentIteration++;
-    }
-
-    if (currentIteration === maxIterations) {
-        alert('There was an Error, I am Fixing this just keep pressing the button it will work.');
-        return;
-    }
-
-    const totalTons = generatedTrucks.reduce((sum, truckSize) => sum + truckSize, 0);
-    if (Math.abs(totalTons - tons) > 10) {
-        alert('Unable to generate trucks within ±10t of the specified value. Please try a different value.');
-        return;
-    }
-
-    const projectNo = document.getElementById('projectNo').value;
-    const dateOfWorks = document.getElementById('dateOfWorks').value;
-    let currentTime = document.getElementById('startTime').value; // Changed to let because we'll modify it
-    const startingPoint = document.getElementById('startingPoint').value;
-    const bookingStatus = document.getElementById('bookingStatus').value;
-    const timeIncrement = parseInt(document.getElementById('timeIncrement').value); // Added time increment
+    const timeIncrement = parseInt(document.getElementById('timeIncrement').value);
 
     if (!projectNo || !dateOfWorks || !currentTime || !startingPoint || !bookingStatus) {
         alert('Please fill in all details except Carter Company and Truck Size.');
