@@ -1,3 +1,20 @@
+
+
+<!-- 
+
+
+
+
+
+truckwit - the truck portal
+
+the idea of this code is to generate a list of trucks for jobs and schedule them for dates and times based on our carters.
+
+
+-->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,24 +54,56 @@
         }
         header {
             background-color: #4CAF50; /* Green */
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-            color: white;
+            height: 170px; /* Adjusted height to match the logo */
             position: fixed; /* Fix position */
             width: 100%; /* Full width */
             top: 0; /* At the top */
-            z-index: 1000; /* Ensure it's above other elements */
+            z-index: 999; /* Adjusted z-index to be below the logo and links */
+            display: flex;
+            align-items: center;
+            padding-left: 260px; /* Adjusted padding to account for the logo */
         }
         body {
-            padding-top: 50px; /* Adjusted space for the header */
+            padding-top: 170px; /* Adjusted space for the header */
+        }
+        #fixedLogo {
+            position: absolute; /* Changed to absolute */
+            left: 100px;
+            top: 10px;
+            width: 150px; /* Adjusted width */
+            height: 150px; /* Adjusted height */
+            z-index: 1001; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links {
+            display: flex;
+            gap: 20px;
+            color: white; /* Set the text color to white */
+            z-index: 1002; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links a {
+            color: white; /* Set the link color to white */
+            text-decoration: none; /* Remove underline */
+        }
+        .header-links a:hover {
+            text-decoration: underline; /* Add underline on hover */
         }
     </style>
 </head>
 <body>
-        <header>
-        Truck Portal
-        </header>
+<header>
+    <img src="truckwitlogo.png" alt="Truck Portal Logo" id="fixedLogo">
+    <div class="header-links">
+        <a href="#">Logout</a>
+        <a href="#">My Account</a>
+        <a href="http://truckwit.com.au/truckp.html">Truckit</a>
+        <a href="#">Help</a>
+    </div>
+</header>
+<!-- ... Rest of your code ... -->
+</body>
+</html>
+
+
     <form id="projectForm">
 
         <label>Date of works: <input type="date" id="dateOfWorks"></label>
@@ -146,21 +195,10 @@
         <option value="TOM">
         <option value="WESTERN LS">
         <option value="WINTER">
-        <option value="JAMES">
-        <option value="CHELSON">
-        <option value="YANNIK">                            
     </datalist>
 </label>
 
-<label>Tons: 
-    <input type="number" id="tons">
-</label>
 
-<button type="button" onclick="generateTrucks()">Generate</button>
-
-<label>Use Favorite Truck Companies: 
-    <input type="checkbox" id="useFavorites">
-</label>
 
 
 <p id="generatedTrucks"></p>
@@ -172,6 +210,15 @@
         <label>Time Increment (mins): <input type="number" id="timeIncrement" value="5"></label>
         <label>Starting Point: <input type="text" id="startingPoint"></label>
         <label>Booking Status: <input type="text" id="bookingStatus"></label>
+        <label>Tons: 
+        <input type="number" id="tons">
+        </label>
+
+        <button type="button" onclick="generateTrucks()">Generate</button>
+        </label>
+        <label>Use Favorite Truck Companies: 
+        <input type="checkbox" id="useFavorites">
+        </label>
         <button type="button" onclick="addEntry()">Add Entry</button>
         <button type="button" onclick="exportToExcel()">Export to Excel</button>
     </form>
@@ -198,93 +245,68 @@
     </table>
     <script>
 
-const contacts = [
-    {carter: "ACE", email: "natalie@acetrucking.com.au", name: "Natalie", phone: null},
-    {carter: "ACCURATE", email: "coordinator@accurateroadprofiling.com.au", name: "Ryan", phone: null},
-    {carter: "AGGI REVOLUTIONS", email: "aggirevolutions@gmail.com", name: "Glenn", phone: null},
-    {carter: "AGIT-8", email: "agit-8@bigpond.com", name: "Lindesay", phone: "+61400829143"},
-    {carter: "AL", email: "apefenterprises@gmail.com", name: "Al", phone: null},
-    {carter: "ALLABOUT", email: "Allabouttipping@gmail.com", name: "Jason", phone: null},
-    {carter: "ASJJ", email: "asjjhaulage@gmail.com", name: "Adrian", phone: null},
-    {carter: "BAQ", email: "carlomicono64@gmail.com", name: "Carlos", phone: "+61401896874"},
-    {carter: "BAZELEY", email: "kenworth.1@bigpond.com", name: "Paul", phone: null},
-    {carter: "BIG DAVES", email: "big_dave@bigpond.net.au", name: "Mel", phone: "+61403217542"},
-    {carter: "BITU-MILL", email: "raymond.holder@bitu-mill.com.au", name: "Nicole", phone: null},
-    {carter: "BLACKSTARK", email: "blackstark@bigpond.com", name: "Richie", phone: null},
-    {carter: "BLUE TIPPERS", email: "sstony81@gmail.com", name: "Tony", phone: null},
-    {carter: "BRAD RICHARDSON", email: "dgunner1969@gmail.com", name: "Brad", phone: null},
-    {carter: "BRENT", email: "brentracey@exemail.com.au", name: "Brent", phone: null},
-    {carter: "BRUCE", email: "sbtomkins@gmail.com", name: "Bruce", phone: null},
-    {carter: "COASTAL", email: "bcook@coastaltipperhire.com.au", name: "Brett", phone: null},
-    {carter: "COLAS", email: "jonesb1@colas.com.au", name: "Ben", phone: null},
-    {carter: "D & M PLANT", email: "bookings@dmplanthire.com.au", name: "Ernie", phone: null},
-    {carter: "DIRT-TEC", email: "admin@dirt-tec.com.au", name: "Brad", phone: null},
-    {carter: "EASTCOAST", email: "eastcoast_asphalt@hotmail.com", name: "Michael", phone: null},
-    {carter: "EASY TIPPERS", email: "info@easytippers.com.au", name: "Chris", phone: null},
-    {carter: "EDGERTON", email: "tedgerton@bigpond.com", name: "Shane", phone: null},
-    {carter: "F&D TIPPERS", email: "dorothyjagusic@gmail.com", name: "Dorothy", phone: null},
-    {carter: "GA TRANSPORT", email: "G-Atransport@bigpond.com", name: "May", phone: null},
-    {carter: "GAINSCOUT", email: "jock@gainscout.com.au", name: "Jock", phone: null},
-    {carter: "GINTRAC", email: "Nick.Gintrac@boral.com.au", name: "Nick", phone: null},
-    {carter: "GRAHAM", email: "graham.gc20@gmail.com", name: "Graham", phone: null},
-    {carter: "GRINGO", email: "carlos@gringotransport.com.au", name: "Carlos", phone: null},
-    {carter: "JASMOND", email: "matt@jasmondtransport.com.au", name: "Connie", phone: null},
-    {carter: "JAT", email: "jatph@bigpond.com", name: "Tracey", phone: "+61473660279"},
-    {carter: "KELLYS", email: "kellysequipment@bigpond.com", name: "Brendan", phone: null},
-    {carter: "LJH TRANSPORT", email: "john.gro@bigpond.com", name: "John", phone: "+61484264599"},
-    {carter: "Moving Earth", email: "scott.darra@gmail.com", name: "Scott", phone: null},
-    {carter: "NEHO", email: "robertneho@gmail.com", name: "Bob", phone: null},
-    {carter: "NQ2U", email: "nq2u@bigpond.com", name: "Dave", phone: null},
-    {carter: "PAUL", email: "Paulieog_fleming@hotmail.com", name: "Paul", phone: null},
-    {carter: "PETROB", email: "karen@petrob.com.au", name: "Mate", phone: null},
-    {carter: "PICKLES", email: "Picklestransport@hotmail.com", name: "Reece", phone: null},
-    {carter: "PLATINUM", email: "platinumtruckbookings@gmail.com", name: "James", phone: "+61499799102"},
-    {carter: "PRIDDEY", email: "ben@priddeytruckingco.com", name: "Ben", phone: null},
-    {carter: "RACEWISH", email: "orders@racewish.com.au", name: "Ian", phone: null},
-    {carter: "RODDERS", email: "rodder71@hotmail.com", name: "Rod", phone: null},
-    {carter: "SCHMIEDE", email: "popp.ag@hotmail.com", name: "Greg", phone: null},
-    {carter: "SOLE", email: "office@soletransport.com.au", name: "Ian", phone: null},
-    {carter: "SS TIPPERS", email: "schrodterptyltd@optusnet.com.au", name: "Wade", phone: null},
-    {carter: "STRUCTURAL", email: "andrew@structuraltransportsolutions.com.au", name: "Andrew", phone: null},
-    {carter: "SUB HAULAGE", email: "chris@subhaulage.com.au", name: "Chris", phone: null},
-    {carter: "SUNSHINE CIVIL", email: "liam@sunshinecoastcivil.com.au", name: "Liam", phone: null},
-    {carter: "SWARLY", email: "matt@swarly.com.au", name: "Matt", phone: null},
-    {carter: "TOM", email: "rebeccawinter25@gmail.com", name: "Tom", phone: null},
-    {carter: "WESTERN LS", email: "scott@westernlandscape.com.au", name: "Scott", phone: null},
-    {carter: "WINTER", email: "rebeccawinter25@gmail.com", name: "Dan", phone: null},
-    {carter: "JAMES", email: "rebeccawinter25@gmail.com", name: "James", phone: null},
-    {carter: "CHELSON", email: "chelson.aitcheson@boral.com", name: "Chelson", phone: "+610473660279"},
-    {carter: "YANNIK", email: "rebeccawinter25@gmail.com", name: "Yannik", phone: null}
-
-];
-
-function sendSMS(phoneNumber, messageText) {
-    const username = 'chelson_boral';
-    const password = 'Q12we34r';
-    const from = '+61173401896';
-
-    // Construct the URL
-    const url = `https://www.voipbuster.com/myaccount/sendsms.php?username=${username}&password=${password}&from=${from}&to=${phoneNumber}&text=${encodeURIComponent(messageText)}`;
-
-    // Send the SMS
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log('Message sent:', data);
-        })
-        .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
-}
-
-
-
 const entries = [];
+
+
+// Place the carterCompaniesData object here
+const carterCompaniesData = {
+    'ACE': { '12': 5, '15': 3, '17': 2 },
+    'ACCURATE': { '15': 4, '18': 3 },
+    'AGGI REVOLUTIONS': { '17': 2, '18': 2 },
+    'AGIT-8': { '17': 1 },
+    'AL': { '12': 4, '17': 3 },
+    'ALLABOUT': { '15': 5, '18': 2 },
+    'ASJJ': { '12': 1, '17': 1, '24': 4 },
+    'BAQ': { '12': 5, '15': 4 },
+    'BAZELEY': { '24': 1 },
+    'BIG DAVES': { '12': 4, '24': 1 },
+    'BITU-MILL': { '12': 4, '18': 6, '24': 8 },
+    'BLACKSTARK': { '12': 3, '18': 3 },
+    'BLUE TIPPERS': { '18': 4, '17': 1 },
+    'BRAD RICHARDSON': { '17': 3, '24': 1 },
+    'BRENT': { '12': 5, '15': 3 },
+    'BRUCE': { '17': 2, '18': 3 },
+    'COASTAL': { '12': 4, '15': 4 },
+    'COLAS': { '24': 6 },
+    'D & M PLANT': { '12': 5 },
+    'DIRT-TEC': { '12': 1, '18': 2 },
+    'EASTCOAST': { '17': 1, '24': 4 },
+    'EASY TIPPERS': { '17': 2, '18': 1 },
+    'EDGERTON': { '12': 4, '17': 2 },
+    'F&D TIPPERS': { '12': 10 },
+    'GA TRANSPORT': { '12': 5, '18': 3 },
+    'GAINSCOUT': { '17': 4, '24': 1 },
+    'GINTRAC': { '12': 3, '15': 5 },
+    'GRAHAM': { '18': 10 },
+    'GRINGO': { '17': 4, '18': 3 },
+    'JASMOND': { '15': 5, '17': 1 },
+    'JAT': { '12': 3, '18': 5 },
+    'KELLYS': { '17': 2, '18': 5,'24': 4 },
+    'LJH TRANSPORT': { '12': 3, '15': 2 },
+    'Moving Earth': { '12': 4, '17': 3 },
+    'NEHO': { '12': 1 },
+    'NQ2U': { '12': 3, '24': 2 },
+    'PAUL': { '12': 5, '15': 4 },
+    'PETROB': { '12': 2,'17': 2, '18': 2,'24': 3 },
+    'PICKLES': { '17': 4 },
+    'PLATINUM': { '15': 5, '17': 2 },
+    'PRIDDEY': { '12': 3, '18': 3 },
+    'RACEWISH': { '12': 4, '15': 2 },
+    'RODDERS': { '17': 2, '18': 1 },
+    'SCHMIEDE': { '12': 5, '15': 3 },
+    'SOLE': { '17': 2, '24': 1 },
+    'SS TIPPERS': { '17': 2, '18': 2,'18': 1 },
+    'STRUCTURAL': { '24': 1 },
+    'SUB HAULAGE': { '17': 1, '24': 1 },
+    'SUNSHINE CIVIL': { '15': 4, '17': 3 },
+    'SWARLY': { '17': 4, '24': 6 },
+    'TOM': { '15': 5, '18': 1 },
+    'WESTERN LS': { '12': 4, '17': 2 },
+    'WINTER': { '15': 3, '24': 2 },
+    'JAMES': { '12': 5, '18': 3 },
+    'CHELSON': { '17': 4, '24': 1 },
+    'YANNIK': { '12': 3, '15': 5 }
+};
 
 function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus) {
     // If parameters are not provided, get values from input fields
@@ -304,14 +326,12 @@ function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, s
 
     entry.forEach((text, index) => {
         const newCell = newRow.insertCell(-1);
-        const newInput = document.createElement('input');
-        newInput.value = text;
-        newInput.dataset.index = index; // Store the index to know which entry to update
-        newInput.oninput = function() {
-            // Update the entry in the entries array when the input value changes
-            entries[newRow.rowIndex-1][this.dataset.index] = this.value;
+        const inputField = document.createElement("input");
+        inputField.value = text;
+        inputField.onchange = function() {
+            entries[newRow.rowIndex-1][index] = inputField.value;
         };
-        newCell.appendChild(newInput);
+        newCell.appendChild(inputField);
     });
 
     // Action cell
@@ -330,27 +350,10 @@ function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, s
     const updateButton = document.createElement("button");
     updateButton.textContent = "Revise";
     updateButton.onclick = function() {
-        newRow.cells[6].firstChild.value = "Revised"; // Update the input value
-        entries[newRow.rowIndex-1][6] = "Revised"; // Update the entry in the entries array
+        newRow.cells[6].firstChild.value = "Revised"; // Update the input field value
+        entries[newRow.rowIndex-1][6] = "Revised";
     };
     actionCell.appendChild(updateButton);
-
-    // Draft button
-    const draftButton = document.createElement("button");
-    draftButton.textContent = "Draft";
-    draftButton.onclick = function() {
-        // Find the contact object for the carterCompany
-        const contact = contacts.find(c => c.carter === carterCompany);
-        if (contact && contact.phone) {
-            // Create SMS message text
-            const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
-            // Send SMS
-            sendSMS(contact.phone, messageText);
-        } else {
-            alert(`No contact or phone number found for ${carterCompany}`);
-        }
-    };
-    actionCell.appendChild(draftButton);
 }
 
 
@@ -407,13 +410,41 @@ function handleFileUpload() {
         const existingTables = document.querySelectorAll('.entriesTable');
         existingTables.forEach(table => table.remove());
 
-workbook.SheetNames.forEach(sheetName => {
-    // Create a new table for each sheet
+        workbook.SheetNames.forEach(sheetName => {
+            const sheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
+
+            // Group data by project number and date
+            const groupedData = jsonData.slice(7).reduce((acc, row) => {
+                const key = `${row[0]}-${row[1]}`; // ProjectNo-Date
+                if (!acc[key]) acc[key] = [];
+                acc[key].push(row);
+                return acc;
+            }, {});
+
+            // Render each group in its own table
+            for (const [key, group] of Object.entries(groupedData)) {
+                renderTable(group, sheet, sheetName);
+            }
+        });
+    };
+    reader.readAsBinaryString(input.files[0]);
+}
+
+function renderTable(group, sheet, sheetName) {
+    // Create a new table for each group
     const table = document.createElement('table');
     table.classList.add('entriesTable');
     document.body.appendChild(table);
 
-    const sheet = workbook.Sheets[sheetName];
+    // Save button at the top of the table
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save Changes";
+    saveButton.onclick = function() {
+        // Logic to save changes to the Excel sheet
+        // This will require additional implementation based on how you want to save the changes
+    };
+    document.body.insertBefore(saveButton, table);
 
     // Assuming project name and location are in B3 and B5 respectively
     const projectName = sheet['B3'] ? sheet['B3'].v : "Unknown Project";
@@ -421,112 +452,77 @@ workbook.SheetNames.forEach(sheetName => {
 
     // Calculate total tons by summing all numbers in column D starting from row 8
     let totalTons = 0;
-    let row = 8; // Starting from row 8
-    while(sheet['D' + row]) {
-        totalTons += sheet['D' + row].v;
-        row++;
-    }
+    group.forEach(row => {
+        totalTons += row[3]; // Assuming tons are in the 4th column
+    });
 
     // Add a header to the table to indicate the sheet name and additional info
     const headerRow = table.insertRow(-1);
     const headerCell = headerRow.insertCell(-1);
     headerCell.colSpan = 8;
-    headerCell.textContent = `Sheet: ${sheetName}, Project: ${projectName}, Location: ${location}, Total Tons: ${totalTons}`;
-    headerCell.style.backgroundColor = '#4CAF50'; // Green background
-    headerCell.style.color = 'white'; // White text
+    const dateParts = sheetName.split("-");
+    const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayOfWeek = daysOfWeek[dateObj.getDay()];
+    headerCell.textContent = `Sheet: ${sheetName} (${dayOfWeek}), Project: ${projectName}, Location: ${location}, Total Tons: ${totalTons}`;
+    headerCell.style.backgroundColor = '#4CAF50';
+    headerCell.style.color = 'white';
     headerCell.style.textAlign = 'center';
-    headerCell.style.fontSize = '18px'; // Larger font size
-    headerCell.style.padding = '10px'; // Some padding
+    headerCell.style.fontSize = '18px';
+    headerCell.style.padding = '10px';
 
-            // Add column headers to the table
-            const columnHeaders = ["Project No", "Date", "Carter Company", "Truck Size", "Start Time", "Starting Point", "Booking Status", "Action"];
-            const columnHeadersRow = table.insertRow(-1);
-            columnHeaders.forEach(header => {
-                const cell = columnHeadersRow.insertCell(-1);
-                cell.textContent = header;
-                cell.style.backgroundColor = '#ddd';
-            });
+    // Add column headers to the table
+    const columnHeaders = ["Project No", "Date", "Carter Company", "Truck Size", "Start Time", "Starting Point", "Booking Status", "Action"];
+    const columnHeadersRow = table.insertRow(-1);
+    columnHeaders.forEach(header => {
+        const cell = columnHeadersRow.insertCell(-1);
+        cell.textContent = header;
+        cell.style.backgroundColor = '#ddd';
+    });
 
-            const jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
-
-            // Assuming the header is in the first row, data starts from the second row
-            jsonData.slice(7).forEach(([
-                projectNo, 
-                dateOfWorks, 
-                carterCompany, 
-                truckSize, 
-                startTime, 
-                startingPoint, 
-                bookingStatus
-            ]) => {
-                // Add to entries array
-                entries.push([
-                    projectNo, 
-                    dateOfWorks, 
-                    carterCompany, 
-                    truckSize, 
-                    startTime, 
-                    startingPoint, 
-                    bookingStatus
-                ]);
-
-                // Add to table
-                const newRow = table.insertRow(-1);
-                [projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus].forEach(text => {
-                    const newCell = newRow.insertCell(-1);
-                    const newText = document.createTextNode(text);
-                    newCell.appendChild(newText);
-                });
-
-                // Action cell
-                const actionCell = newRow.insertCell(-1);
-
-                // Delete button
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "Delete";
-                deleteButton.onclick = function() {
-                    table.deleteRow(newRow.rowIndex);
-                    entries.splice(newRow.rowIndex-1, 1);
-                };
-                actionCell.appendChild(deleteButton);
-
-                // Update button
-                const updateButton = document.createElement("button");
-                updateButton.textContent = "Revise";
-                updateButton.onclick = function() {
-                    newRow.cells[6].textContent = "Revised";
-                    entries[newRow.rowIndex-1][6] = "Revised";
-                };
-                actionCell.appendChild(updateButton);
-
-                    // Draft button
-                const draftButton = document.createElement("button");
-                draftButton.textContent = "Draft";
-                draftButton.onclick = function() {
-                    // Find the contact object for the carterCompany
-                    const contact = contacts.find(c => c.carter === carterCompany);
-                    if (contact && contact.phone) {
-                        // Create SMS message text
-                        const messageText = `New job alert for ${carterCompany}: Date of works: ${dateOfWorks}, Truck size: ${truckSize}, Starting point: ${startingPoint}.`;
-                        // Send SMS
-                        sendSMS(contact.phone, messageText);
-                    } else {
-                        alert(`No contact or phone number found for ${carterCompany}`);
-                    }
-                };
-                actionCell.appendChild(draftButton);
-
-
-
-
-
-            });
+    // Add data to the table
+    group.forEach(row => {
+        const newRow = table.insertRow(-1);
+        row.forEach(text => {
+            const newCell = newRow.insertCell(-1);
+            const newText = document.createElement('input');
+            newText.value = text;
+            newText.disabled = true; // Initially, the input fields are disabled
+            newCell.appendChild(newText);
         });
-    };
-    reader.readAsBinaryString(input.files[0]);
+
+        // Action cell
+        const actionCell = newRow.insertCell(-1);
+
+        // Delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            table.deleteRow(newRow.rowIndex);
+            entries.splice(newRow.rowIndex-1, 1);
+        };
+        actionCell.appendChild(deleteButton);
+
+        // Update button
+        const updateButton = document.createElement("button");
+        updateButton.textContent = "Revise";
+        updateButton.onclick = function() {
+            newRow.cells[6].firstChild.value = "Revised";
+            entries[newRow.rowIndex-1][6] = "Revised";
+        };
+        actionCell.appendChild(updateButton);
+
+        // Edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.onclick = function() {
+            for (let i = 0; i < newRow.cells.length - 1; i++) { // -1 to exclude the action cell
+                newRow.cells[i].firstChild.disabled = !newRow.cells[i].firstChild.disabled; // Toggle the disabled state
+            }
+        };
+        actionCell.appendChild(editButton);
+    });
 }
-
-
 
 
 
@@ -648,10 +644,10 @@ function generateTrucks() {
 
     const projectNo = document.getElementById('projectNo').value;
     const dateOfWorks = document.getElementById('dateOfWorks').value;
-    let currentTime = document.getElementById('startTime').value; // Changed to let because we'll modify it
+    let currentTime = document.getElementById('startTime').value;
     const startingPoint = document.getElementById('startingPoint').value;
     const bookingStatus = document.getElementById('bookingStatus').value;
-    const timeIncrement = parseInt(document.getElementById('timeIncrement').value); // Added time increment
+    const timeIncrement = parseInt(document.getElementById('timeIncrement').value);
 
     if (!projectNo || !dateOfWorks || !currentTime || !startingPoint || !bookingStatus) {
         alert('Please fill in all details except Carter Company and Truck Size.');
@@ -659,7 +655,7 @@ function generateTrucks() {
     }
 
     const useFavorites = document.getElementById('useFavorites').checked;
-    const favoriteCompanies = ['RODDERS', 'NEHO', 'BAZELEY', 'D & M PLANT', 'DIRT-TEC', 'AGGI REVOLUTIONS'];
+    const favoriteCompanies = ['RODDERS', 'NEHO', 'BAZELEY', 'D & M PLANT', 'DIRT-TEC', 'AGIT-8', 'PICKLES', 'GRINGO', 'BLUE TIPPERS', 'KELLYS', 'STRUCTURAL', 'SWARLY', 'COASTAL', 'SS TIPPERS', 'BITU-MILL', 'AGGI REVOLUTIONS'];
     const carterCompanies = Array.from(document.getElementById('carterCompanies').options).map(option => option.value);
 
     const prioritizedCompanies = useFavorites ? 
@@ -667,8 +663,27 @@ function generateTrucks() {
         carterCompanies;
 
     generatedTrucks.forEach(truckSize => {
-        const randomIndex = Math.floor(Math.random() * prioritizedCompanies.length);
-        const selectedCarterCompany = prioritizedCompanies[randomIndex];
+        let attempts = 0;
+        let selectedCarterCompany;
+
+        do {
+            const randomIndex = Math.floor(Math.random() * prioritizedCompanies.length);
+            selectedCarterCompany = prioritizedCompanies[randomIndex];
+
+            if (carterCompaniesData[selectedCarterCompany] && carterCompaniesData[selectedCarterCompany][truckSize]) {
+                carterCompaniesData[selectedCarterCompany][truckSize]--;
+                if (carterCompaniesData[selectedCarterCompany][truckSize] === 0) {
+                    delete carterCompaniesData[selectedCarterCompany][truckSize];
+                }
+                break;
+            }
+
+            attempts++;
+            if (attempts > maxIterations) {
+                alert('Unable to find a suitable carter company. Please try again.');
+                return;
+            }
+        } while (true);
 
         addEntry(projectNo, dateOfWorks, selectedCarterCompany, truckSize, currentTime, startingPoint, bookingStatus);
 
@@ -676,6 +691,8 @@ function generateTrucks() {
         currentTime = addMinutesToTime(currentTime, timeIncrement);
     });
 }
+
+
 
 
 
