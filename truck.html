@@ -1,0 +1,768 @@
+
+
+<!-- 
+
+
+
+
+
+truckwit - the truck portal
+
+the idea of this code is to generate a list of trucks for jobs and schedule them for dates and times based on our carters.
+
+
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Portal</title>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: auto;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100px;
+            padding: 5px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        header {
+            background-color: #4CAF50; /* Green */
+            height: 170px; /* Adjusted height to match the logo */
+            position: fixed; /* Fix position */
+            width: 100%; /* Full width */
+            top: 0; /* At the top */
+            z-index: 999; /* Adjusted z-index to be below the logo and links */
+            display: flex;
+            align-items: center;
+            padding-left: 260px; /* Adjusted padding to account for the logo */
+        }
+        body {
+            padding-top: 170px; /* Adjusted space for the header */
+        }
+        #fixedLogo {
+            position: absolute; /* Changed to absolute */
+            left: 100px;
+            top: 10px;
+            width: 150px; /* Adjusted width */
+            height: 150px; /* Adjusted height */
+            z-index: 1001; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links {
+            display: flex;
+            gap: 20px;
+            color: white; /* Set the text color to white */
+            z-index: 1002; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links a {
+            color: white; /* Set the link color to white */
+            text-decoration: none; /* Remove underline */
+        }
+        .header-links a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+                .tableContainer {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tableHeader {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .entriesTable {
+    width: 100%;
+    display: none; /* Initially hide the table */
+    border-collapse: collapse; /* Optional: for better border appearance */
+    overflow-x: auto; /* Add horizontal scrolling */
+    display: block; /* Make the table a block element to accept width and overflow */
+}
+
+    </style>
+</head>
+<body>
+<header>
+    <img src="truckwitlogo.png" alt="Truck Portal Logo" id="fixedLogo">
+    <div class="header-links">
+        <a href="#">Logout</a>
+        <a href="#">My Account</a>
+        <a href="http://truckwit.com.au/truckp.html">Truckit</a>
+        <a href="#">Help</a>
+    </div>
+</header>
+<!-- ... Rest of your code ... -->
+</body>
+</html>
+
+
+    <form id="projectForm">
+
+        <label>Date of works: <input type="date" id="dateOfWorks"></label>
+        <label>Project No: <input type="text" id="projectNo"></label>
+        <label>DRSID: <input type="text" id="drsid"></label>
+        <label>Project name: <input type="text" id="projectName"></label>
+        <label>Location: <input type="text" id="location"></label>
+        <label>Supervisor: 
+        <input list="supervisors" type="text" id="supervisor">
+    <datalist id="supervisors">
+        <option value="Andrew Jones - 0401 896 458">
+        <option value="Chris Henley - 0409 047 383">
+        <option value="Craig Philipson - 0401 894 926">
+        <option value="Dean Cullen-Reid - 0401 895 407">
+        <option value="Ian Kirby - 0401 897 523">
+        <option value="James Laurenson - 0401 894 898">
+        <option value="Johnny Cash - 0437 821 140">
+        <option value="Mal Wringe - 0401 896 287">
+        <option value="Mark Chalker - 0401 892 260">
+        <option value="Mark Knowlan - 0419 742 437">
+        <option value="Matt (Red) Hocking - 0401 892 201">
+        <option value="Matt Dillon - 0417 455 094">
+        <option value="Matt Egan - 0401 892 277">
+        <option value="Neel Patel - 0401 893 372">
+        <option value="Raj Modi - 0401 893 372">
+        <option value="Steve Cuthbertson - 0401 897 477">
+        <option value="T300 Mobile - 0401 896 982">
+        <option value="Tony (Ribsy) Carlyle  - 0401 895 461">
+        <option value="Troy Kennington - 0401 897 571">
+        <option value="Yannik Gintrac - 0422 200 404">
+    </datalist>
+</label>
+
+        <!-- ... Previous code ... -->
+
+<label>Carter company: 
+    <input list="carterCompanies" type="text" id="carterCompany">
+    <datalist id="carterCompanies">
+        <option value="ACE">
+        <option value="ACCURATE">
+        <option value="AGGI REVOLUTIONS">
+        <option value="AGIT-8">
+        <option value="AL">
+        <option value="ALLABOUT">
+        <option value="ASJJ">
+        <option value="BAQ">
+        <option value="BAZELEY">
+        <option value="BIG DAVES">
+        <option value="BITU-MILL">
+        <option value="BLACKSTARK">
+        <option value="BLUE TIPPERS">
+        <option value="BRAD RICHARDSON">
+        <option value="BRENT">
+        <option value="BRUCE">
+        <option value="COASTAL">
+        <option value="COLAS">
+        <option value="D & M PLANT">
+        <option value="DIRT-TEC">
+        <option value="EASTCOAST">
+        <option value="EASY TIPPERS">
+        <option value="EDGERTON">
+        <option value="F&D TIPPERS">
+        <option value="GA TRANSPORT">
+        <option value="GAINSCOUT">
+        <option value="GINTRAC">
+        <option value="GRAHAM">
+        <option value="GRINGO">
+        <option value="JASMOND">
+        <option value="JAT">
+        <option value="KELLYS">
+        <option value="LJH TRANSPORT">
+        <option value="Moving Earth">
+        <option value="NEHO">
+        <option value="NQ2U">
+        <option value="PAUL">
+        <option value="PETROB">
+        <option value="PICKLES">
+        <option value="PLATINUM">
+        <option value="PRIDDEY">
+        <option value="RACEWISH">
+        <option value="RODDERS">
+        <option value="SCHMIEDE">
+        <option value="SOLE">
+        <option value="SS TIPPERS">
+        <option value="STRUCTURAL">
+        <option value="SUB HAULAGE">
+        <option value="SUNSHINE CIVIL">
+        <option value="SWARLY">
+        <option value="TOM">
+        <option value="WESTERN LS">
+        <option value="WINTER">
+    </datalist>
+</label>
+
+
+
+
+<p id="generatedTrucks"></p>
+
+<!-- ... Remaining code ... -->
+
+        <label>Truck Size: <input type="text" id="truckSize"></label>
+        <label>Start Time: <input type="time" id="startTime"></label>
+        <label>Time Increment (mins): <input type="number" id="timeIncrement" value="5"></label>
+        <label>Starting Point: <input type="text" id="startingPoint"></label>
+        <label>Booking Status: <input type="text" id="bookingStatus"></label>
+        <label>Tons: 
+        <input type="number" id="tons">
+        </label>
+
+        <button type="button" onclick="generateTrucks()">Generate</button>
+        </label>
+        <label>Use Favorite Truck Companies: 
+        <input type="checkbox" id="useFavorites">
+        </label>
+        <button type="button" onclick="addEntry()">Add Entry</button>
+        <button type="button" onclick="exportToExcel()">Export to Excel</button>
+    </form>
+    <button type="button" onclick="sortTable()">Sort by Project No</button>
+    <button type="button" onclick="sortTableByDate()">Sort by Date</button>
+    <button type="button" onclick="sortTableByProjectNoAndDate()">Sort by Project No and Date</button>
+
+
+    <input type="file" id="upload" accept=".xlsx" onchange="handleFileUpload()" />
+
+
+    <table id="entriesTable">
+        <tr>
+        <th>Project No</th>
+        <th>Date</th>
+        <th>Carter Company</th>
+        <th>Truck Size</th>
+        <th>Start Time</th>
+        <th>Starting Point</th>
+        <th>Booking Status</th>
+        <th>Action</th>
+        </tr>
+        <!-- Entries will be added here dynamically -->
+    </table>
+    <script>
+
+const entries = [];
+
+
+// Place the carterCompaniesData object here
+const carterCompaniesData = {
+    'ACE': { '12': 5, '15': 3, '17': 2 },
+    'ACCURATE': { '15': 4, '18': 3 },
+    'AGGI REVOLUTIONS': { '17': 2, '18': 2 },
+    'AGIT-8': { '17': 1 },
+    'AL': { '12': 4, '17': 3 },
+    'ALLABOUT': { '15': 5, '18': 2 },
+    'ASJJ': { '12': 1, '17': 1, '24': 4 },
+    'BAQ': { '12': 5, '15': 4 },
+    'BAZELEY': { '24': 1 },
+    'BIG DAVES': { '12': 4, '24': 1 },
+    'BITU-MILL': { '12': 4, '18': 6, '24': 8 },
+    'BLACKSTARK': { '12': 3, '18': 3 },
+    'BLUE TIPPERS': { '18': 4, '17': 1 },
+    'BRAD RICHARDSON': { '17': 3, '24': 1 },
+    'BRENT': { '12': 5, '15': 3 },
+    'BRUCE': { '17': 2, '18': 3 },
+    'COASTAL': { '12': 4, '15': 4 },
+    'COLAS': { '24': 6 },
+    'D & M PLANT': { '12': 5 },
+    'DIRT-TEC': { '12': 1, '18': 2 },
+    'EASTCOAST': { '17': 1, '24': 4 },
+    'EASY TIPPERS': { '17': 2, '18': 1 },
+    'EDGERTON': { '12': 4, '17': 2 },
+    'F&D TIPPERS': { '12': 10 },
+    'GA TRANSPORT': { '12': 5, '18': 3 },
+    'GAINSCOUT': { '17': 4, '24': 1 },
+    'GINTRAC': { '12': 3, '15': 5 },
+    'GRAHAM': { '18': 10 },
+    'GRINGO': { '17': 4, '18': 3 },
+    'JASMOND': { '15': 5, '17': 1 },
+    'JAT': { '12': 3, '18': 5 },
+    'KELLYS': { '17': 2, '18': 5,'24': 4 },
+    'LJH TRANSPORT': { '12': 3, '15': 2 },
+    'Moving Earth': { '12': 4, '17': 3 },
+    'NEHO': { '12': 1 },
+    'NQ2U': { '12': 3, '24': 2 },
+    'PAUL': { '12': 5, '15': 4 },
+    'PETROB': { '12': 2,'17': 2, '18': 2,'24': 3 },
+    'PICKLES': { '17': 4 },
+    'PLATINUM': { '15': 5, '17': 2 },
+    'PRIDDEY': { '12': 3, '18': 3 },
+    'RACEWISH': { '12': 4, '15': 2 },
+    'RODDERS': { '17': 2, '18': 1 },
+    'SCHMIEDE': { '12': 5, '15': 3 },
+    'SOLE': { '17': 2, '24': 1 },
+    'SS TIPPERS': { '17': 2, '18': 2,'18': 1 },
+    'STRUCTURAL': { '24': 1 },
+    'SUB HAULAGE': { '17': 1, '24': 1 },
+    'SUNSHINE CIVIL': { '15': 4, '17': 3 },
+    'SWARLY': { '17': 4, '24': 6 },
+    'TOM': { '15': 5, '18': 1 },
+    'WESTERN LS': { '12': 4, '17': 2 },
+    'WINTER': { '15': 3, '24': 2 },
+    'JAMES': { '12': 5, '18': 3 },
+    'CHELSON': { '17': 4, '24': 1 },
+    'YANNIK': { '12': 3, '15': 5 }
+};
+
+function addEntry(projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus) {
+    // If parameters are not provided, get values from input fields
+    projectNo = projectNo || document.getElementById('projectNo').value;
+    dateOfWorks = dateOfWorks || document.getElementById('dateOfWorks').value;
+    carterCompany = carterCompany || document.getElementById('carterCompany').value;
+    truckSize = truckSize || document.getElementById('truckSize').value;
+    startTime = startTime || document.getElementById('startTime').value;
+    startingPoint = startingPoint || document.getElementById('startingPoint').value;
+    bookingStatus = bookingStatus || document.getElementById('bookingStatus').value;
+
+    const entry = [projectNo, dateOfWorks, carterCompany, truckSize, startTime, startingPoint, bookingStatus];
+    entries.push(entry);
+
+    const table = document.getElementById('entriesTable');
+    const newRow = table.insertRow(-1);
+
+    entry.forEach((text, index) => {
+        const newCell = newRow.insertCell(-1);
+        const inputField = document.createElement("input");
+        inputField.value = text;
+        inputField.onchange = function() {
+            entries[newRow.rowIndex-1][index] = inputField.value;
+        };
+        newCell.appendChild(inputField);
+    });
+
+    // Action cell
+    const actionCell = newRow.insertCell(-1);
+
+    // Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function() {
+        table.deleteRow(newRow.rowIndex);
+        entries.splice(newRow.rowIndex-1, 1);
+    };
+    actionCell.appendChild(deleteButton);
+
+    // Update button
+    const updateButton = document.createElement("button");
+    updateButton.textContent = "Revise";
+    updateButton.onclick = function() {
+        newRow.cells[6].firstChild.value = "Revised"; // Update the input field value
+        entries[newRow.rowIndex-1][6] = "Revised";
+    };
+    actionCell.appendChild(updateButton);
+}
+
+
+function exportToExcel() {
+    const dateOfWorks = document.getElementById('dateOfWorks').value;
+    const projectNo = document.getElementById('projectNo').value;
+    const drsid = document.getElementById('drsid').value;
+    const projectName = document.getElementById('projectName').value;
+    const location = document.getElementById('location').value;
+    const supervisor = document.getElementById('supervisor').value;
+
+    const wb = XLSX.utils.book_new();
+
+    // Group entries by date
+    const groupedEntries = entries.reduce((acc, entry) => {
+        (acc[entry[1]] = acc[entry[1]] || []).push(entry);
+        return acc;
+    }, {});
+
+    Object.keys(groupedEntries).forEach(date => {
+        const data = [
+            ["BOOKING STATUS / CARTER MISSMATCH",,,,,],
+            ["Date of works:", date + " NIGHT",,,],
+            ["Project No:", projectNo,,"DRSID:", drsid],
+            ["Project:", projectName,,,],
+            ["Location", location,,,],
+            ["Supervisor:", supervisor,,,],
+            ["Project No", "Date", "Carter:", "Truck Size:", "Start Time:", "Starting Point:", "Booking Status:"],
+        ];
+
+        // Add entries to the data array before exporting to Excel
+        groupedEntries[date].forEach(entry => {
+            data.push(entry);
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        XLSX.utils.book_append_sheet(wb, ws, date); // Use date as sheet name
+    });
+
+    XLSX.writeFile(wb, "project_data.xlsx");
+}
+
+function handleFileUpload() {
+    const input = document.getElementById('upload');
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const data = e.target.result;
+        const workbook = XLSX.read(data, {
+            type: 'binary'
+        });
+
+        // Clear existing entries
+        entries.length = 0;
+        const existingContainers = document.querySelectorAll('.tableContainer');
+        existingContainers.forEach(container => container.remove());
+
+        workbook.SheetNames.forEach(sheetName => {
+            const sheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
+
+            // Group data by project number and date
+            const groupedData = jsonData.slice(7).reduce((acc, row) => {
+                const key = `${row[0]}-${row[1]}`; // ProjectNo-Date
+                if (!acc[key]) acc[key] = [];
+                acc[key].push(row);
+                return acc;
+            }, {});
+
+            // Render each group in its own table
+            for (const [key, group] of Object.entries(groupedData)) {
+                renderTable(group, sheet, sheetName);
+            }
+        });
+    };
+    reader.readAsBinaryString(input.files[0]);
+}
+function renderTable(group, sheet, sheetName) {
+    // Create a container for the table
+    const container = document.createElement('div');
+    container.classList.add('tableContainer');
+    document.body.appendChild(container);
+
+    // Create a clickable header for the table
+    const tableHeader = document.createElement('div');
+    tableHeader.classList.add('tableHeader');
+    const dateParts = sheetName.split("-");
+    const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    tableHeader.textContent = sheetName + " (" + dateObj.toDateString() + ")";
+    container.appendChild(tableHeader);
+
+    // Create a new table for each group
+    const table = document.createElement('table');
+    table.classList.add('entriesTable');
+    container.appendChild(table);
+
+    // Save button at the top of the table
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save Changes";
+    saveButton.onclick = function() {
+        // 1. Gather the updated data from the table
+        const updatedData = [];
+        for (let i = 1; i < table.rows.length; i++) { // Start from 1 to skip the header row
+            const row = table.rows[i];
+            const rowData = [];
+            for (let j = 0; j < row.cells.length - 1; j++) { // -1 to exclude the action cell
+                rowData.push(row.cells[j].firstChild.value);
+            }
+            updatedData.push(rowData);
+        }
+            // 2. Update the original workbook object
+        const ws = XLSX.utils.aoa_to_sheet(updatedData);
+        workbook.Sheets[sheetName] = ws;
+
+        // 3. Export the updated workbook
+        const wbout = XLSX.write(workbook, {bookType:'xlsx', bookSST:true, type: 'binary'});
+        const blob = new Blob([s2ab(wbout)], {type: "application/octet-stream"});
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = url;
+        a.download = "updated_data.xlsx";
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+    container.insertBefore(saveButton, table);
+
+    // Assuming project name and location are in B3 and B5 respectively
+    const projectName = sheet['B3'] ? sheet['B3'].v : "Unknown Project";
+    const location = sheet['B5'] ? sheet['B5'].v : "Unknown Location";
+
+    // Calculate total tons by summing all numbers in column D starting from row 8
+    let totalTons = 0;
+    group.forEach(row => {
+        totalTons += row[3]; // Assuming tons are in the 4th column
+    });
+
+    // Add a header to the table to indicate the sheet name and additional info
+    const headerRow = table.insertRow(-1);
+    const headerCell = headerRow.insertCell(-1);
+    headerCell.colSpan = 8;
+    headerCell.textContent = `Sheet: ${sheetName} (${dateObj.toDateString()}), Project: ${projectName}, Location: ${location}, Total Tons: ${totalTons}`;
+    headerCell.style.backgroundColor = '#4CAF50';
+    headerCell.style.color = 'white';
+    headerCell.style.textAlign = 'center';
+    headerCell.style.fontSize = '18px';
+    headerCell.style.padding = '10px';
+
+    // Add column headers to the table
+    const columnHeaders = ["Project No", "Date", "Carter Company", "Truck Size", "Start Time", "Starting Point", "Booking Status", "Action"];
+    const columnHeadersRow = table.insertRow(-1);
+    columnHeaders.forEach(header => {
+        const cell = columnHeadersRow.insertCell(-1);
+        cell.textContent = header;
+        cell.style.backgroundColor = '#ddd';
+    });
+
+    // Add data to the table
+    group.forEach(row => {
+        const newRow = table.insertRow(-1);
+        row.forEach(text => {
+            const newCell = newRow.insertCell(-1);
+            const newText = document.createElement('input');
+            newText.value = text;
+            newText.disabled = true; // Initially, the input fields are disabled
+            newCell.appendChild(newText);
+        });
+
+        // Action cell
+        const actionCell = newRow.insertCell(-1);
+
+        // Delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            table.deleteRow(newRow.rowIndex);
+            entries.splice(newRow.rowIndex-1, 1);
+        };
+        actionCell.appendChild(deleteButton);
+
+        // Update button
+        const updateButton = document.createElement("button");
+        updateButton.textContent = "Revise";
+        updateButton.onclick = function() {
+            newRow.cells[6].firstChild.value = "Revised";
+            entries[newRow.rowIndex-1][6] = "Revised";
+        };
+        actionCell.appendChild(updateButton);
+
+        // Edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.onclick = function() {
+            for (let i = 0; i < newRow.cells.length - 1; i++) { // -1 to exclude the action cell
+                newRow.cells[i].firstChild.disabled = !newRow.cells[i].firstChild.disabled; // Toggle the disabled state
+            }
+        };
+        actionCell.appendChild(editButton);
+    });
+
+    // Add event listener to the table header to toggle table visibility
+    tableHeader.addEventListener('click', function() {
+        if (table.style.display === 'none' || table.style.display === '') {
+            table.style.display = 'block';
+        } else {
+            table.style.display = 'none';
+        }
+    });
+}
+
+
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+}
+
+
+function addMinutesToTime(time, minsToAdd) {
+    const [hours, minutes] = time.split(':').map(Number);
+    let newMinutes = minutes + minsToAdd;
+    let newHours = hours + Math.floor(newMinutes / 60);
+    newMinutes = newMinutes % 60;
+    return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
+}
+
+function sortTableByDate() {
+    const table = document.getElementById('entriesTable');
+    let rows, switching, i, x, y, shouldSwitch;
+    switching = true;
+
+    // Continue looping until no switching is needed
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        // Loop through all table rows (except the first, which contains table headers)
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+
+            // Get the two elements you want to compare: dates
+            const dateX = new Date(rows[i].getElementsByTagName("TD")[1].innerHTML);
+            const dateY = new Date(rows[i + 1].getElementsByTagName("TD")[1].innerHTML);
+
+            // Check if the two rows should switch place based on date
+            if (dateX > dateY) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            // If a switch has been marked, make the switch and mark that a switch has been done
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
+}
+
+
+
+function sortTable() {
+    const table = document.getElementById('entriesTable');
+    let rows, switching, i, x, y, shouldSwitch;
+    switching = true;
+
+    // Continue looping until no switching is needed
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        // Loop through all table rows (except the first, which contains table headers)
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+
+            // Get the two elements you want to compare: project number and date
+            const projectNoX = rows[i].getElementsByTagName("TD")[0].innerHTML;
+            const projectNoY = rows[i + 1].getElementsByTagName("TD")[0].innerHTML;
+            const dateX = new Date(rows[i].getElementsByTagName("TD")[1].innerHTML);
+            const dateY = new Date(rows[i + 1].getElementsByTagName("TD")[1].innerHTML);
+
+            // Check if the two rows should switch place based on project number
+            if (projectNoX.toLowerCase() > projectNoY.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }
+            
+            // If project numbers are the same, check based on date
+            if (projectNoX.toLowerCase() === projectNoY.toLowerCase() && dateX > dateY) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            // If a switch has been marked, make the switch and mark that a switch has been done
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
+}
+
+
+
+function generateTrucks() {
+    const tons = parseInt(document.getElementById('tons').value);
+    const truckSizes = [12, 15, 17, 18, 24];
+    let remainingTons = tons;
+    let generatedTrucks = [];
+    let maxIterations = 1000;
+    let currentIteration = 0;
+
+    while (remainingTons > 0 && currentIteration < maxIterations) {
+        const randomIndex = Math.floor(Math.random() * truckSizes.length);
+        const selectedTruckSize = truckSizes[randomIndex];
+
+        if (selectedTruckSize <= remainingTons) {
+            generatedTrucks.push(selectedTruckSize);
+            remainingTons -= selectedTruckSize;
+        }
+
+        currentIteration++;
+    }
+
+    if (currentIteration === maxIterations) {
+        alert('There was an Error, I am Fixing this just keep pressing the button it will work.');
+        return;
+    }
+
+    const totalTons = generatedTrucks.reduce((sum, truckSize) => sum + truckSize, 0);
+    if (Math.abs(totalTons - tons) > 10) {
+        alert('Unable to generate trucks within ±10t of the specified value. Please try a different value.');
+        return;
+    }
+
+    const projectNo = document.getElementById('projectNo').value;
+    const dateOfWorks = document.getElementById('dateOfWorks').value;
+    let currentTime = document.getElementById('startTime').value;
+    const startingPoint = document.getElementById('startingPoint').value;
+    const bookingStatus = document.getElementById('bookingStatus').value;
+    const timeIncrement = parseInt(document.getElementById('timeIncrement').value);
+
+    if (!projectNo || !dateOfWorks || !currentTime || !startingPoint || !bookingStatus) {
+        alert('Please fill in all details except Carter Company and Truck Size.');
+        return;
+    }
+
+    const useFavorites = document.getElementById('useFavorites').checked;
+    const favoriteCompanies = ['RODDERS', 'NEHO', 'BAZELEY', 'D & M PLANT', 'DIRT-TEC', 'AGIT-8', 'PICKLES', 'GRINGO', 'BLUE TIPPERS', 'KELLYS', 'STRUCTURAL', 'SWARLY', 'COASTAL', 'SS TIPPERS', 'BITU-MILL', 'AGGI REVOLUTIONS'];
+    const carterCompanies = Array.from(document.getElementById('carterCompanies').options).map(option => option.value);
+
+    const prioritizedCompanies = useFavorites ? 
+        [...favoriteCompanies, ...carterCompanies.filter(company => !favoriteCompanies.includes(company.toLowerCase()))] : 
+        carterCompanies;
+
+    generatedTrucks.forEach(truckSize => {
+        let attempts = 0;
+        let selectedCarterCompany;
+
+        do {
+            const randomIndex = Math.floor(Math.random() * prioritizedCompanies.length);
+            selectedCarterCompany = prioritizedCompanies[randomIndex];
+
+            if (carterCompaniesData[selectedCarterCompany] && carterCompaniesData[selectedCarterCompany][truckSize]) {
+                carterCompaniesData[selectedCarterCompany][truckSize]--;
+                if (carterCompaniesData[selectedCarterCompany][truckSize] === 0) {
+                    delete carterCompaniesData[selectedCarterCompany][truckSize];
+                }
+                break;
+            }
+
+            attempts++;
+            if (attempts > maxIterations) {
+                alert('Unable to find a suitable carter company. Please try again.');
+                return;
+            }
+        } while (true);
+
+        addEntry(projectNo, dateOfWorks, selectedCarterCompany, truckSize, currentTime, startingPoint, bookingStatus);
+
+        // Increment the time for the next truck
+        currentTime = addMinutesToTime(currentTime, timeIncrement);
+    });
+}
+
+
+
+
+
+    </script>
+</body>
+</html>

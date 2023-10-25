@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .card a {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .alerts {
+            text-align: right;
+        }
+
+        .alerts img {
+            width: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="alerts">
+        <img src="alert-icon.png" alt="Alerts" title="View Alerts">
+    </div>
+    <h1>Dashboard</h1>
+    <div class="dashboard">
+        <div class="card">
+            <h2>Navigation</h2>
+            <a href="calendar.html">View Calendar</a>
+            <a href="addbooking.html">Add Booking</a>
+            <a href="addcarter.html">Add Carter Company</a>
+        </div>
+        <div class="card">
+            <h2>User Settings</h2>
+            <label>Username: <input type="text" name="username"></label><br><br>
+            <label>Password: <input type="password" name="password"></label><br><br>
+            <label>Email: <input type="email" name="email"></label><br><br>
+            <button>Save Changes</button>
+        </div>
+    </div>
+</body>
+</html>

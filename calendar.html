@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calendar-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .calendar {
+            display: flex;
+            width: 100%;
+            max-width: 700px;
+            overflow-x: scroll;
+        }
+
+        .calendar-day {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <button id="prevWeek">← Previous Week</button>
+        <div class="calendar" id="calendar"></div>
+        <button id="nextWeek">Next Week →</button>
+    </div>
+    <input type="file" id="upload" accept=".xlsx">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        const calendarEl = document.getElementById('calendar');
+        const prevWeekBtn = document.getElementById('prevWeek');
+        const nextWeekBtn = document.getElementById('nextWeek');
+        const uploadEl = document.getElementById('upload');
+        let currentDate = new Date();
+
+        function renderWeek(date) {
+            calendarEl.innerHTML = ''; // Clear existing days
+            for (let i = 0; i < 7; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = date.toDateString();
+                calendarEl.appendChild(dayEl);
+                date.setDate(date.getDate() + 1);
+            }
+        }
+
+        uploadEl.addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(e) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const data = event.target.result;
+                const workbook = XLSX.read(data, { type: 'binary' });
+                // Assuming each sheet corresponds to a day
+                const sheet = workbook.Sheets[currentDate.toDateString()];
+                if (sheet) {
+                    const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+                    // Group by project name (assuming it's in the first column)
+                    const groupedData = jsonData.reduce((acc, row) => {
+                        const projectName = row[0];
+                        if (!acc[projectName]) acc[projectName] = [];
+                        acc[projectName].push(row);
+                        return acc;
+                    }, {});
+                    renderGroupedData(groupedData);
+                }
+            };
+            reader.readAsBinaryString(e.target.files[0]);
+        }
+
+        function renderGroupedData(data) {
+            for (const [projectName, rows] of Object.entries(data)) {
+                const btn = document.createElement("button");
+                btn.className = "collapsible";
+                btn.textContent = projectName;
+                calendarEl.appendChild(btn);
+                const contentDiv = document.createElement("div");
+                contentDiv.className = "content";
+                rows.forEach(row => {
+                    const rowDiv = document.createElement("div");
+                    rowDiv.textContent = row.join(", ");
+                    contentDiv.appendChild(rowDiv);
+                });
+                calendarEl.appendChild(contentDiv);
+                btn.addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    const content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        }
+
+        prevWeekBtn.addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 14); // Go back 2 weeks, then renderWeek will move it forward 1 week
+            renderWeek(currentDate);
+        });
+
+        nextWeekBtn.addEventListener('click', () => {
+            renderWeek(currentDate);
+        });
+
+        // Initial render
+        renderWeek(currentDate);
+    </script>
+</body>
+</html>
