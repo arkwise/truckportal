@@ -42,28 +42,6 @@
             padding: 10px 20px;
             margin: 10px;
         }
-
-        .debug-container {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .project-table {
-            margin-top: 10px;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .project-table, .project-table th, .project-table td {
-            border: 1px solid black;
-        }
-
-        .project-table th, .project-table td {
-            padding: 5px;
-            text-align: left;
-        
-        }
     </style>
 </head>
 <body>
@@ -77,11 +55,11 @@
     <!-- File Input for Excel File -->
     <input type="file" id="excelFileInput" accept=".xlsx, .xls" />
 
+    <!-- Container for Sheet Tabs/Buttons -->
+    <div id="sheetTabs"></div>
+
     <!-- Container for Displaying Excel Data -->
     <div id="excelDataTable"></div>
-
-    <!-- Debugging Information Container -->
-    <div id="debugContainer" class="debug-container"></div>
 
     <script>
         const calendarEl = document.getElementById('calendar');
@@ -89,28 +67,15 @@
         const prevMonthBtn = document.getElementById('prevMonth');
         const nextMonthBtn = document.getElementById('nextMonth');
         let currentDate = new Date();
-        let projectData = {};
-        let workbookGlobal;
 
         function renderMonth(date) {
-            calendarEl.innerHTML = '';
+            calendarEl.innerHTML = ''; // Clear existing days
             calendarHeaderEl.textContent = date.toLocaleString('default', { month: 'long', year: 'numeric' });
             const currentMonth = date.getMonth();
             while (date.getMonth() === currentMonth) {
                 const dayEl = document.createElement('div');
                 dayEl.className = 'calendar-day';
                 dayEl.textContent = date.getDate();
-
-                let projectDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toDateString();
-                if (projectData[projectDate]) {
-                    const projectCountEl = document.createElement('div');
-                    projectCountEl.innerText = `${projectData[projectDate].length} Projects`;
-                    projectCountEl.style.cursor = 'pointer';
-                    projectCountEl.style.textDecoration = 'underline';
-                    projectCountEl.addEventListener('click', () => showProjects(projectDate));
-                    dayEl.appendChild(projectCountEl);
-                }
-
                 calendarEl.appendChild(dayEl);
                 date.setDate(date.getDate() + 1);
             }
@@ -126,6 +91,8 @@
             renderMonth(new Date(currentDate));
         });
 
+        renderMonth(currentDate);
+
         document.getElementById('excelFileInput').addEventListener('change', function(e) {
             var file = e.target.files[0];
             var reader = new FileReader();
@@ -133,64 +100,31 @@
                 var data = new Uint8Array(e.target.result);
                 var workbook = XLSX.read(data, {type: 'array'});
 
-                workbookGlobal = workbook;
-                projectData = {};
+                // Clear previous tabs and data
+                document.getElementById('sheetTabs').innerHTML = '';
                 document.getElementById('excelDataTable').innerHTML = '';
 
-                workbook.SheetNames.forEach(sheetName => {
-                    var worksheet = workbook.Sheets[sheetName];
-                    var projectNoCell = worksheet['B3'];
-                    if (projectNoCell) {
-                        var projectNo = projectNoCell.v;
-                        let date = extractDateFromSheetName(sheetName);
-                        if (date) {
-                            let standardizedDate = new Date(date).toDateString();
-                            if (!projectData[standardizedDate]) {
-                                projectData[standardizedDate] = [];
-                            }
-                            projectData[standardizedDate].push({projectNo, sheetName});
-                        }
-                    }
+                // Create a tab/button for each sheet
+                workbook.SheetNames.forEach(function(sheetName) {
+                    var btn = document.createElement('button');
+                    btn.innerText = sheetName;
+                    btn.addEventListener('click', function() {
+                        showSheetData(workbook, sheetName);
+                    });
+                    document.getElementById('sheetTabs').appendChild(btn);
                 });
 
-                renderMonth(currentDate);
+                // Initially display first sheet
+                showSheetData(workbook, workbook.SheetNames[0]);
             };
             reader.readAsArrayBuffer(file);
         });
 
-        function extractDateFromSheetName(sheetName) {
-            return sheetName;
-        }
-
-
-function showProjects(projectDate) {
-    const projects = projectData[projectDate];
-    let excelDataTable = document.getElementById('excelDataTable');
-    excelDataTable.innerHTML = '';
-
-    projects.forEach(project => {
-        let projectContainer = document.createElement('div');
-        projectContainer.innerHTML = `<h3>Project No: ${project.projectNo}</h3>`;
-        projectContainer.appendChild(showSheetData(workbookGlobal, project.sheetName));
-        excelDataTable.appendChild(projectContainer);
-    });
-}
-
-
         function showSheetData(workbook, sheetName) {
-    var worksheet = workbook.Sheets[sheetName];
-    var htmlStr = XLSX.utils.sheet_to_html(worksheet, {id: "projectTable_" + sheetName});
-    
-    let tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlStr;
-    let table = tempDiv.querySelector('table');
-    table.classList.add("project-table");
-
-    return table;
-}
-
-
-        renderMonth(currentDate);
+            var worksheet = workbook.Sheets[sheetName];
+            var htmlStr = XLSX.utils.sheet_to_html(worksheet);
+            document.getElementById('excelDataTable').innerHTML = htmlStr;
+        }
     </script>
 
     <!-- SheetJS Library -->

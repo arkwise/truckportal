@@ -42,11 +42,28 @@
         <img src="alert-icon.png" alt="Alerts" title="View Alerts">
     </div>
     <h1>Dashboard</h1>
+
+    <!-- Include the header using JavaScript -->
+    <div id="header-placeholder"></div>
+
+    <script>
+        // Load the header from header.html using JavaScript
+        const headerPlaceholder = document.getElementById("header-placeholder");
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "header.html", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                headerPlaceholder.innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    </script>
+
     <div class="dashboard">
         <div class="card">
             <h2>Navigation</h2>
             <a href="calendar.html">View Calendar</a>
-            <a href="addbooking.html">Add Booking</a>
+            <a href="truck.html">Add Booking</a>
             <a href="addcarter.html">Add Carter Company</a>
         </div>
         <div class="card">

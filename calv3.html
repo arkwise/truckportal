@@ -52,7 +52,6 @@
         .project-table {
             margin-top: 10px;
             border-collapse: collapse;
-            width: 100%;
         }
 
         .project-table, .project-table th, .project-table td {
@@ -62,7 +61,6 @@
         .project-table th, .project-table td {
             padding: 5px;
             text-align: left;
-        
         }
     </style>
 </head>
@@ -162,33 +160,23 @@
             return sheetName;
         }
 
+        function showProjects(projectDate) {
+            const projects = projectData[projectDate];
+            document.getElementById('excelDataTable').innerHTML = '';
 
-function showProjects(projectDate) {
-    const projects = projectData[projectDate];
-    let excelDataTable = document.getElementById('excelDataTable');
-    excelDataTable.innerHTML = '';
-
-    projects.forEach(project => {
-        let projectContainer = document.createElement('div');
-        projectContainer.innerHTML = `<h3>Project No: ${project.projectNo}</h3>`;
-        projectContainer.appendChild(showSheetData(workbookGlobal, project.sheetName));
-        excelDataTable.appendChild(projectContainer);
-    });
-}
-
+            projects.forEach(project => {
+                showSheetData(workbookGlobal, project.sheetName);
+            });
+        }
 
         function showSheetData(workbook, sheetName) {
-    var worksheet = workbook.Sheets[sheetName];
-    var htmlStr = XLSX.utils.sheet_to_html(worksheet, {id: "projectTable_" + sheetName});
-    
-    let tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlStr;
-    let table = tempDiv.querySelector('table');
-    table.classList.add("project-table");
+            var worksheet = workbook.Sheets[sheetName];
+            var htmlStr = XLSX.utils.sheet_to_html(worksheet, {id: "projectTable_" + sheetName});
+            document.getElementById('excelDataTable').innerHTML += htmlStr;
 
-    return table;
-}
-
+            var table = document.getElementById("projectTable_" + sheetName);
+            table.classList.add("project-table");
+        }
 
         renderMonth(currentDate);
     </script>

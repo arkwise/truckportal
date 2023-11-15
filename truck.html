@@ -388,34 +388,55 @@ function exportToExcel() {
 
     const wb = XLSX.utils.book_new();
 
+    // Assuming 'entries' is an array of your data
     // Group entries by date
     const groupedEntries = entries.reduce((acc, entry) => {
-        (acc[entry[1]] = acc[entry[1]] || []).push(entry);
+        const entryDate = entry[1]; // Assuming date is at position 1
+        (acc[entryDate] = acc[entryDate] || []).push(entry);
         return acc;
-    }, {});
+    }, {}); 
 
-    Object.keys(groupedEntries).forEach(date => {
-        const data = [
-            ["BOOKING STATUS / CARTER MISSMATCH",,,,,],
-            ["Date of works:", date + " NIGHT",,,],
-            ["Project No:", projectNo,,"DRSID:", drsid],
-            ["Project:", projectName,,,],
-            ["Location", location,,,],
-            ["Supervisor:", supervisor,,,],
-            ["Project No", "Date", "Carter:", "Truck Size:", "Start Time:", "Starting Point:", "Booking Status:"],
-        ];
+    Object.keys(groupedEntries).forEach(entryDate => {
+        let data = [];
+        let maxColumns = 7; // Total columns for each project (including gap)
 
-        // Add entries to the data array before exporting to Excel
-        groupedEntries[date].forEach(entry => {
-            data.push(entry);
+        // Construct header for each project
+        groupedEntries[entryDate].forEach((entry, index) => {
+            let startCol = maxColumns * index; // Starting column for this project
+
+            // Add headers and entries to the data array
+            data[0] = data[0] || Array(startCol).fill("");
+            data[7][startCol] = "Carter:";
+
+            data[1] = data[1] || Array(startCol).fill("");
+            data[1][startCol] = "Date of works:";
+            data[1][startCol + 1] = dateOfWorks + " NIGHT";
+
+            data[2] = data[2] || Array(startCol).fill("");
+            data[2][startCol] = "Project No:";
+            data[2][startCol + 1] = projectNo;
+            data[2][startCol + 3] = "DRSID:";
+            data[2][startCol + 4] = drsid;
+
+            // ... replicate other fields similarly ...
+
+            // Add actual entry data
+            entry.forEach((cell, cellIndex) => {
+                let row = cellIndex + 7; // Adjust row index based on header rows
+                data[row] = data[row] || Array(startCol).fill("");
+                data[row][startCol] = cell; // Assumes Carter is the first item in each entry
+            });
         });
 
         const ws = XLSX.utils.aoa_to_sheet(data);
-        XLSX.utils.book_append_sheet(wb, ws, date); // Use date as sheet name
+        XLSX.utils.book_append_sheet(wb, ws, "Date " + entryDate); // Use date as sheet name
     });
 
     XLSX.writeFile(wb, "project_data.xlsx");
 }
+
+
+
 
 function handleFileUpload() {
     const input = document.getElementById('upload');

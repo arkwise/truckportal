@@ -1,0 +1,110 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Portal</title>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: auto;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100px;
+            padding: 5px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        header {
+            background-color: #4CAF50; /* Green */
+            height: 150px; /* Adjusted height to match the logo */
+            position: fixed; /* Fix position */
+            width: 100%; /* Full width */
+            top: 0; /* At the top */
+            z-index: 999; /* Adjusted z-index to be below the logo and links */
+            display: flex;
+            align-items: center;
+            padding-left: 270px; /* Adjusted padding to account for the logo */
+        }
+        body {
+            padding-top: 170px; /* Adjusted space for the header */
+        }
+        #fixedLogo {
+            position: absolute; /* Changed to absolute */
+            left: 100px;
+            top: 10px;
+            width: 125px; /* Adjusted width */
+            height: 125px; /* Adjusted height */
+            z-index: 1001; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links {
+            display: flex;
+            gap: 20px;
+            color: white; /* Set the text color to white */
+            z-index: 1002; /* Adjusted z-index to be higher than the header */
+        }
+        .header-links a {
+            color: white; /* Set the link color to white */
+            text-decoration: none; /* Remove underline */
+        }
+        .header-links a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+                .tableContainer {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tableHeader {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .entriesTable {
+    width: 100%;
+    display: none; /* Initially hide the table */
+    border-collapse: collapse; /* Optional: for better border appearance */
+    overflow-x: auto; /* Add horizontal scrolling */
+    display: block; /* Make the table a block element to accept width and overflow */
+}
+
+    </style>
+</head>
+<body>
+<header>
+    <img src="truckwitlogo.png" alt="Truck Portal Logo" id="fixedLogo">
+    <div class="header-links">
+        <a href="#">Logout</a>
+        <a href="#">My Account</a>
+        <a href="http://truckwit.com.au/calendar.html">Calender</a>
+        <a href="#">Help</a>
+    </div>
+</header>
+<!-- ... Rest of your code ... -->
+</body>
+</html>
